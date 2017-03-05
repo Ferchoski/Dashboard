@@ -1,0 +1,108 @@
+#fondo {
+    position: absolute;
+}
+
+.negro {
+    background-color: rgb(0, 0, 0);
+}
+
+.no-vineta {
+    list-style-type: none;
+}
+
+.no-float {
+    float: none;
+}
+
+.bloque {
+    display: inline-block;
+}
+
+.l-blanca {
+    color: rgb(255, 255, 255);
+}
+
+.i50 {
+    width: 50%;
+}
+
+nav li {
+    margin-top: 5px;
+}
+
+.m10 {
+    margin-top: 10px;
+}
+
+.lato {
+    font-family: 'Lato', sans-serif;
+}
+
+.pac {
+    font-family: 'Pacifico', cursive;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.mediano {
+    font-size: 1.5em;
+}
+
+.grande {
+    font-size: 5em
+}
+
+footer {
+    margin-top: 50px;
+}
+
+.l-vik {
+    font-family: 'Caesar Dressing', cursive;
+}
+
+div nav li {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#car {
+    margin-top: 15px;
+}
+
+img {
+    max-width: 60%;
+}
+
+.logo {
+    max-width: 100%;
+}
+
+.gris {
+    background-color: #bbb;
+}
+
+.top {
+    top: 0;
+}
+
+.bloque {
+    display: inline-block;
+}
+
+.alinear {
+    text-align: 107px;
+}
+
+h1, h2, h3 {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 15px;
+    ;
+    padding: 0;
+}
+
+header {
+    top: 0;
+}
