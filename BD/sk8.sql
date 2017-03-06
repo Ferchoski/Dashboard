@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-03-2017 a las 15:58:00
+-- Tiempo de generación: 06-03-2017 a las 17:02:16
 -- Versión del servidor: 5.6.24
 -- Versión de PHP: 5.6.8
 
@@ -96,6 +96,46 @@ CREATE TABLE IF NOT EXISTS `tb_detalle` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tb_detalleplantilla`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_detalleplantilla` (
+  `id_detallleplant` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `subtotal` float NOT NULL,
+  `fk_plantilla` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_detallepromocion`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_detallepromocion` (
+  `descuento` float NOT NULL,
+  `preciopromocion` float NOT NULL,
+  `fk_promocion` int(11) NOT NULL,
+  `fk_producto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_entrada`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_entrada` (
+  `id_entradas` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `fecha_entrada` int(11) NOT NULL,
+  `fk_producto` int(11) NOT NULL,
+  `fk_proveedor` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tb_estado_pedido`
 --
 
@@ -138,6 +178,20 @@ CREATE TABLE IF NOT EXISTS `tb_pedido` (
   `tb_Ciudad_id_Ciudad` int(11) NOT NULL,
   `tb_Usuario_documento` varchar(20) NOT NULL,
   `tb_Promocion_id_Promocion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_plantilla`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_plantilla` (
+  `id_plantilla` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `caracterizacion` varchar(45) NOT NULL,
+  `total` int(11) NOT NULL,
+  `fk_detalle` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -378,6 +432,24 @@ ALTER TABLE `tb_detalle`
   ADD PRIMARY KEY (`id_Detalle`,`tb_Pedido_id_Pedido`,`tb_Producto_id_Producto`), ADD KEY `fk_tb_Detalle_tb_Pedido1_idx` (`tb_Pedido_id_Pedido`), ADD KEY `fk_tb_Detalle_tb_Producto1_idx` (`tb_Producto_id_Producto`);
 
 --
+-- Indices de la tabla `tb_detalleplantilla`
+--
+ALTER TABLE `tb_detalleplantilla`
+  ADD PRIMARY KEY (`id_detallleplant`);
+
+--
+-- Indices de la tabla `tb_detallepromocion`
+--
+ALTER TABLE `tb_detallepromocion`
+  ADD KEY `fk_promocion` (`fk_promocion`), ADD KEY `fk_producto` (`fk_producto`);
+
+--
+-- Indices de la tabla `tb_entrada`
+--
+ALTER TABLE `tb_entrada`
+  ADD PRIMARY KEY (`id_entradas`), ADD KEY `id_entradas` (`id_entradas`), ADD KEY `fk_proveedor` (`fk_proveedor`), ADD KEY `fk_proveedor_2` (`fk_proveedor`);
+
+--
 -- Indices de la tabla `tb_estado_pedido`
 --
 ALTER TABLE `tb_estado_pedido`
@@ -396,6 +468,12 @@ ALTER TABLE `tb_pedido`
   ADD PRIMARY KEY (`id_Pedido`,`tb_Ciudad_id_Ciudad`,`tb_Usuario_documento`,`tb_Promocion_id_Promocion`), ADD KEY `fk_tb_Pedido_tb_Ciudad1_idx` (`tb_Ciudad_id_Ciudad`), ADD KEY `fk_tb_Pedido_tb_Usuario1_idx` (`tb_Usuario_documento`), ADD KEY `fk_tb_Pedido_tb_Promocion1_idx` (`tb_Promocion_id_Promocion`);
 
 --
+-- Indices de la tabla `tb_plantilla`
+--
+ALTER TABLE `tb_plantilla`
+  ADD PRIMARY KEY (`id_plantilla`), ADD KEY `fk_detalle` (`fk_detalle`);
+
+--
 -- Indices de la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
@@ -411,7 +489,7 @@ ALTER TABLE `tb_promocion`
 -- Indices de la tabla `tb_proovedor`
 --
 ALTER TABLE `tb_proovedor`
-  ADD PRIMARY KEY (`id_Proovedor`);
+  ADD PRIMARY KEY (`id_Proovedor`), ADD KEY `id_Proovedor` (`id_Proovedor`);
 
 --
 -- Indices de la tabla `tb_publicacion`
@@ -471,6 +549,21 @@ ALTER TABLE `tb_usuario`
 ALTER TABLE `tb_chat`
   MODIFY `idchat` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `tb_detalleplantilla`
+--
+ALTER TABLE `tb_detalleplantilla`
+  MODIFY `id_detallleplant` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_entrada`
+--
+ALTER TABLE `tb_entrada`
+  MODIFY `id_entradas` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_plantilla`
+--
+ALTER TABLE `tb_plantilla`
+  MODIFY `id_plantilla` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
@@ -515,6 +608,26 @@ ADD CONSTRAINT `fk_tb_Detalle_tb_Pedido1` FOREIGN KEY (`tb_Pedido_id_Pedido`) RE
 ADD CONSTRAINT `fk_tb_Detalle_tb_Producto1` FOREIGN KEY (`tb_Producto_id_Producto`) REFERENCES `tb_producto` (`id_Producto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `tb_detalleplantilla`
+--
+ALTER TABLE `tb_detalleplantilla`
+ADD CONSTRAINT `tb_detalleplantilla_ibfk_1` FOREIGN KEY (`id_detallleplant`) REFERENCES `tb_plantilla` (`id_plantilla`);
+
+--
+-- Filtros para la tabla `tb_detallepromocion`
+--
+ALTER TABLE `tb_detallepromocion`
+ADD CONSTRAINT `tb_detallepromocion_ibfk_1` FOREIGN KEY (`fk_producto`) REFERENCES `tb_producto` (`id_Producto`),
+ADD CONSTRAINT `tb_detallepromocion_ibfk_2` FOREIGN KEY (`fk_promocion`) REFERENCES `tb_promocion` (`id_Promocion`);
+
+--
+-- Filtros para la tabla `tb_entrada`
+--
+ALTER TABLE `tb_entrada`
+ADD CONSTRAINT `tb_entrada_ibfk_1` FOREIGN KEY (`id_entradas`) REFERENCES `tb_producto` (`id_Producto`),
+ADD CONSTRAINT `tb_entrada_ibfk_2` FOREIGN KEY (`fk_proveedor`) REFERENCES `tb_proovedor` (`id_Proovedor`);
+
+--
 -- Filtros para la tabla `tb_estado_pedido`
 --
 ALTER TABLE `tb_estado_pedido`
@@ -527,6 +640,12 @@ ALTER TABLE `tb_pedido`
 ADD CONSTRAINT `fk_tb_Pedido_tb_Ciudad1` FOREIGN KEY (`tb_Ciudad_id_Ciudad`) REFERENCES `tb_ciudad` (`id_Ciudad`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `fk_tb_Pedido_tb_Promocion1` FOREIGN KEY (`tb_Promocion_id_Promocion`) REFERENCES `tb_promocion` (`id_Promocion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `fk_tb_Pedido_tb_Usuario1` FOREIGN KEY (`tb_Usuario_documento`) REFERENCES `tb_usuario` (`documento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `tb_plantilla`
+--
+ALTER TABLE `tb_plantilla`
+ADD CONSTRAINT `tb_plantilla_ibfk_1` FOREIGN KEY (`fk_detalle`) REFERENCES `tb_detalle` (`id_Detalle`);
 
 --
 -- Filtros para la tabla `tb_producto`

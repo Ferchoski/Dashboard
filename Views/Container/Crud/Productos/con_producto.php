@@ -21,7 +21,11 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-12" id="qwe" style="text-align:center;"></div>
+        <div class="col-lg-12" style="text-align:center;">
+            <div class="table-responsive" id="qwe">
+                
+            </div>
+        </div>
     </div>
 
     <script src="../../../../dashboard/Views/js/Validaciones/val_con_producto.js"></script>

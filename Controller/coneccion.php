@@ -82,33 +82,38 @@
 
         $consulta = $this->conexion->query($query);
 
-
-            echo "<table border='3px solid' align='center' style='width:100%;'>";
-            echo "<tr style='text-align:center;'>";
-                    echo "<th align='center' height='50px'>Id Producto</th>";
-                    echo "<th height='50px'>Nombre</th>";
-                    echo "<th height='50px'>Stock</th>";
-                    echo "<th height='50px'>Precio</th>";
-                    echo "<th height='50px'>Estado</th>";
-                    echo "<th height='50px'>Cantidad</th>";
-                    echo "<th height='50px'>Categoria</th>";
-                    echo "<th height='50px'>Talla</th>";
-                    echo "<th height='50px'>Marca</th>";
+            echo "<div class='table-responsive'>";
+            echo "<table class='table table-hover'>";
+            echo "<thead>";
+            echo "<tr >";
+                    echo "<th>Id Producto</th>";
+                    echo "<th>Nombre</th>";
+                    echo "<th>Stock</th>";
+                    echo "<th>Precio</th>";
+                    echo "<th>Estado</th>";
+                    echo "<th>Cantidad</th>";
+                    echo "<th>Categoria</th>";
+                    echo "<th>Talla</th>";
+                    echo "<th>Marca</th>";
             echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
             while ($lol = mysqli_fetch_array($consulta)) {
                 echo "<tr>";
-                    echo "<td height='30px'>".$lol['id']."</td>";
-                    echo "<td height='30px'>".$lol['nombre']."</td>";
-                    echo "<td height='30px'>".$lol['stock']."</td>";
-                    echo "<td height='30px'>".$lol['precio']."</td>";
-                    echo "<td height='30px'>".$lol['estado']."</td>";
-                    echo "<td height='30px'>".$lol['cantidad']."</td>";
-                    echo "<td height='30px'>".$lol['nom_categoria']."</td>";
-                    echo "<td height='30px'>".$lol['nom_talla']."</td>";
-                    echo "<td height='30px'>".$lol['nom_marca']."</td>";
+                    echo "<td>".$lol['id']."</td>";
+                    echo "<td>".$lol['nombre']."</td>";
+                    echo "<td>".$lol['stock']."</td>";
+                    echo "<td>".$lol['precio']."</td>";
+                    echo "<td>".$lol['estado']."</td>";
+                    echo "<td>".$lol['cantidad']."</td>";
+                    echo "<td>".$lol['nom_categoria']."</td>";
+                    echo "<td>".$lol['nom_talla']."</td>";
+                    echo "<td>".$lol['nom_marca']."</td>";
                 echo "</tr>";
             }
+            echo "</tbody>";
             echo "</table>";
+            echo "</div>";
     }
 
     function r_usuario($doc, $nom,$ape,$telf,$pass,$email,$telm,$dir,$esta,$tdoc,$rol){
@@ -134,37 +139,42 @@
 
             $consulta = $this->conexion->query($query);
 
-                echo "<table border='3px solid' align='center' style='width:100%;'>";
-                echo "<tr style='text-align:center;'>";
-                        echo "<th align='center' height='50px'>Documento</th>";
-                        echo "<th height='50px'>Tipo Documento</th>";
-                        echo "<th height='50px'>Nombre</th>";
-                        echo "<th height='50px'>Apellido</th>";
-                        echo "<th height='50px'>Email</th>";
-                        echo "<th height='50px'>Contraseña</th>";
-                        echo "<th height='50px'>Telefono Fijo</th>";
-                        echo "<th height='50px'>Telefono Movil</th>";
-                        echo "<th height='50px'>Direccion</th>";
-                        echo "<th height='50px'>Estado</th>";
-                        echo "<th height='50px'>Rol</th>";
-                echo "</tr>";
+            echo "<div class='table-responsive'>";
+            echo "<table class='table table-hover'>";
+            echo "<thead>";
+            echo "<tr >";
+                        echo "<th>Documento</th>";
+                        echo "<th>Tipo Documento</th>";
+                        echo "<th>Nombre</th>";
+                        echo "<th>Apellido</th>";
+                        echo "<th>Email</th>";
+                        echo "<th>Contraseña</th>";
+                        echo "<th>Telefono Fijo</th>";
+                        echo "<th>Telefono Movil</th>";
+                        echo "<th>Direccion</th>";
+                        echo "<th>Estado</th>";
+                        echo "<th>Rol</th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
                 while ($lol = mysqli_fetch_array($consulta)) {
                     echo "<tr>";
-                        echo "<td height='30px'>".$lol['documento']."</td>";
-                        echo "<td height='30px'>".$lol['nom_tipo']."</td>";
-                        echo "<td height='30px'>".$lol['nombres']."</td>";
-                        echo "<td height='30px'>".$lol['apellidos']."</td>";
-                        echo "<td height='30px'>".$lol['email']."</td>";
-                        echo "<td height='30px'>".$lol['contrasena']."</td>";
-                        echo "<td height='30px'>".$lol['telefonoFijo']."</td>";
-                        echo "<td height='30px'>".$lol['telefonoMovil']."</td>";
-                        echo "<td height='30px'>".$lol['direccion']."</td>";
-                        echo "<td height='30px'>".$lol['estado']."</td>";
-                        echo "<td height='30px'>".$lol['rol']."</td>";
-
+                        echo "<td>".$lol['documento']."</td>";
+                        echo "<td>".$lol['nom_tipo']."</td>";
+                        echo "<td>".$lol['nombres']."</td>";
+                        echo "<td>".$lol['apellidos']."</td>";
+                        echo "<td>".$lol['email']."</td>";
+                        echo "<td>".$lol['contrasena']."</td>";
+                        echo "<td>".$lol['telefonoFijo']."</td>";
+                        echo "<td>".$lol['telefonoMovil']."</td>";
+                        echo "<td>".$lol['direccion']."</td>";
+                        echo "<td>".$lol['estado']."</td>";
+                        echo "<td>".$lol['rol']."</td>";
                     echo "</tr>";
                 }
+                echo "</tbody>";
                 echo "</table>";
+                echo "</div>";
     }
   }
 // Para arreglar el code https://www.tools4noobs.com/online_tools/beautify_php/
