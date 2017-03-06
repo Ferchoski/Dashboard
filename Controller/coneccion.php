@@ -24,7 +24,7 @@
 		$this->email = $usuario;
 		$this->password = $pass;
 
-		$query = "select nombre,email,contrasena from usuario where email = '".$this->email."' and contrasena = '".$this->password."'";
+		$query = "SELECT nombre,email,contrasena from usuario where email = '".$this->email."' and contrasena = '".$this->password."'";
 		$consulta = $this->conexion->query($query);
 
 		if($row = mysqli_fetch_array($consulta)){
@@ -45,7 +45,7 @@
 
 	 function registrar($doc,$nom,$ape,$email,$pass,$fec,$dir,$tel){
 
-		$query ="insert into usuario(documento,nombre,apellido,email,contrasena,fecha,direccion,telefono)values('$doc','$nom','$ape','$email','$pass','$fec','$dir','$tel')";
+		$query ="INSERT into usuario(documento,nombre,apellido,email,contrasena,fecha,direccion,telefono)values('$doc','$nom','$ape','$email','$pass','$fec','$dir','$tel')";
 		$consulta = $this->conexion->query($query);
 
 		if (!$consulta) {
@@ -60,7 +60,7 @@
 
 	function r_producto($cod, $nom,$sto,$pre,$est,$can,$mar,$cat,$tal){
 
-		$query="insert into tb_producto(id_Producto,nombre,stockMinimo,precio,estado_producto,cantidad,tb_Categoria_id_Categoria,Tallas_idtallas,tb_Marca_id_Marca)values('$cod','$nom','$sto','$pre', '$est','$can','$cat','$tal','$mar')";
+		$query="INSERT into tb_producto values('$cod','$nom','$sto','$pre', '$est','$can','$cat','$tal','$mar')";
 
 		$consulta = $this->conexion->query($query);
 
@@ -76,9 +76,9 @@
 
 	function con_producto($id){
 		if (empty ($id)){
-			$query="select p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca";
+			$query="SELECT p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca";
 		}else{
-			$query="select p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca where p.id_Producto = '$id'";
+			$query="SELECT p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca where p.id_Producto = '$id'";
 		}
 
 		$consulta = $this->conexion->query($query);
@@ -115,7 +115,7 @@
 	}
 
 	function r_usuario($doc, $nom,$ape,$telf,$pass,$email,$telm,$dir,$esta,$tdoc,$rol){
-		$query="insert into tb_usuario values ('$doc','$tdoc','$nom','$ape','$email','$pass','$telf','$telm','$dir','$esta','$rol')";
+		$query="INSERT into tb_usuario values ('$doc','$tdoc','$nom','$ape','$email','$pass','$telf','$telm','$dir','$esta','$rol')";
 
 		$consulta = $this->conexion->query($query);
 
@@ -173,21 +173,7 @@
 
 	}
 
-		 function recuperar($email){
-			$this->mail = $email;
-			$query = "select pass from usuario where email = '".$this->mail."'";
 
-			$consulta = $this->conexion->query($query);
-			if($row = mysqli_fetch_array($consulta)){
-			session_start();
-			$_SESSION['contra'] = $row['pass'];
-
-			echo "Tu contraseña es " .$_SESSION['contra']." ";
-			session_destroy();
-			}else {
-				echo "No hay ningun registro con el email ".$email." ";
-			}
-		}
 	}
 
 ?>
