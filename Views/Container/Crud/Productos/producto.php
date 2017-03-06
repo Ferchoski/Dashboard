@@ -36,7 +36,7 @@
             <div class="form-group">
                 <label>Estado</label>
                 <select class="form-control" name="estado" id="6">
-                        <option value="">Seleccione un estado</optio
+                        <option value="">Seleccione un estado</option>
                         <option value="0">Falso</option>
                         <option value="1">Activo</option>
                   </select>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 
@@ -30,7 +30,7 @@
         include_once('Views/Container/nav.html');
         include_once('Views/Container/section.html');
         ?>
-        
+
     </div>
     <!-- /#wrapper -->
 </body>
