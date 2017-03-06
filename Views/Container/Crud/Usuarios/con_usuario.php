@@ -14,7 +14,7 @@
             </div>
 
             <div class="form-group input-group">
-                <button type="button" class="form-control" onclick="tabla()">Consultar</button>
+                <button type="button" class="form-control" onclick="Val_con_usuario()">Consultar</button>
             </div>
 
         </form>
@@ -26,5 +26,5 @@
 
     </div>
 
-    <script src="../../../../dashboard/Views/js/validar.js"></script>
+    <script src="../../../../dashboard/Views/js/Validaciones/val_con_usuario.js"></script>
 </div>

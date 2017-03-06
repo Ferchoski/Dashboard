@@ -110,7 +110,66 @@
 				echo "</tr>";
 			}
 			echo "</table>";
-		
+
+
+	}
+
+	function r_usuario($doc, $nom,$ape,$telf,$pass,$email,$telm,$dir,$esta,$tdoc,$rol){
+		$query="insert into tb_usuario values ('$doc','$tdoc','$nom','$ape','$email','$pass','$telf','$telm','$dir','$esta','$rol')";
+
+		$consulta = $this->conexion->query($query);
+
+		if (!$consulta) {
+		    printf("Error: %s\n", mysqli_error($this->conexion));
+				echo "<br><br>";
+		    exit();
+		}else {
+				echo "Usuario $nom $ape fue ingresado correctamente";
+		}
+
+	}
+
+	function c_usuario($doc){
+				if (empty ($doc)){
+				$query="SELECT u.documento,tp.nom_TipoDocumento nom_tipo,u.nombres,u.apellido_1 apellidos,u.email,u.contrasena,u.telefonoFijo,u.telefonoMovil,u.direccion,u.estado,r.nom_rol rol FROM tb_usuario u JOIN tb_tipodocumento tp on tp.id_TipoDocumento = u.tb_TipoDocumento_id_TipoDocumento JOIN tb_rol r on r.id_rol=u.tb_Rol_id_rol";
+			}else {
+				$query="SELECT u.documento,tp.nom_TipoDocumento nom_tipo,u.nombres,u.apellido_1 apellidos,u.email,u.contrasena,u.telefonoFijo,u.telefonoMovil,u.direccion,u.estado,r.nom_rol rol FROM tb_usuario u JOIN tb_tipodocumento tp on tp.id_TipoDocumento = u.tb_TipoDocumento_id_TipoDocumento JOIN tb_rol r on r.id_rol=u.tb_Rol_id_rol where u.documento='$doc'";
+			}
+
+			$consulta = $this->conexion->query($query);
+
+
+				echo "<table border='3px solid' align='center' style='width:100%;'>";
+				echo "<tr style='text-align:center;'>";
+						echo "<th align='center' height='50px'>Documento</th>";
+						echo "<th height='50px'>Tipo Documento</th>";
+						echo "<th height='50px'>Nombre</th>";
+						echo "<th height='50px'>Apellido</th>";
+						echo "<th height='50px'>Email</th>";
+						echo "<th height='50px'>Contraseña</th>";
+						echo "<th height='50px'>Telefono Fijo</th>";
+						echo "<th height='50px'>Telefono Movil</th>";
+						echo "<th height='50px'>Direccion</th>";
+						echo "<th height='50px'>Estado</th>";
+						echo "<th height='50px'>Rol</th>";
+				echo "</tr>";
+				while ($lol = mysqli_fetch_array($consulta)) {
+					echo "<tr>";
+						echo "<td height='30px'>".$lol['documento']."</td>";
+						echo "<td height='30px'>".$lol['nom_tipo']."</td>";
+						echo "<td height='30px'>".$lol['nombres']."</td>";
+						echo "<td height='30px'>".$lol['apellidos']."</td>";
+						echo "<td height='30px'>".$lol['email']."</td>";
+						echo "<td height='30px'>".$lol['contrasena']."</td>";
+						echo "<td height='30px'>".$lol['telefonoFijo']."</td>";
+						echo "<td height='30px'>".$lol['telefonoMovil']."</td>";
+						echo "<td height='30px'>".$lol['direccion']."</td>";
+						echo "<td height='30px'>".$lol['estado']."</td>";
+						echo "<td height='30px'>".$lol['rol']."</td>";
+
+					echo "</tr>";
+				}
+				echo "</table>";
 
 	}
 

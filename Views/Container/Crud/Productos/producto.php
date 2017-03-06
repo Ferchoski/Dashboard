@@ -47,9 +47,9 @@
                 $query = 'SELECT * FROM tb_marca';
                 $result = $conexion->query($query);
             ?>
-            <div class="form-group">
-                <label>Marca</label>
-                <select class="form-control" name="marca" id="7">
+                <div class="form-group">
+                    <label>Marca</label>
+                    <select class="form-control" name="marca" id="7">
                       <option value="">Seleccione una marca..</option>
                 <?php
                       while ( $row = $result->fetch_array() )
@@ -63,17 +63,17 @@
                 }
                 ?>
                 </select>
-            </div>
+                </div>
 
-            <!-- Categoria -->
-            <?php
+                <!-- Categoria -->
+                <?php
                 include '../../../../Model/config.php';
                 $query = 'SELECT * FROM tb_categoria';
                 $result = $conexion->query($query);
                 ?>
-            <div class="form-group">
-                <label>Categoria</label>
-                <select class="form-control" name="categoria" id="8">
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select class="form-control" name="categoria" id="8">
                       <option>Seleccione una categoria..</option>
                 <?php
                       while ( $row = $result->fetch_array() )
@@ -88,17 +88,17 @@
                 ?>
 
                 </select>
-            </div>
+                    </div>
 
-            <!-- Talla -->
-            <?php
+                    <!-- Talla -->
+                    <?php
                 include '../../../../Model/config.php';
                 $query = 'SELECT * FROM tb_tallas';
                 $result = $conexion->query($query);
                 ?>
-            <div class="form-group">
-                <label>Talla</label>
-                <select class="form-control" name="talla" id="9">
+                        <div class="form-group">
+                            <label>Talla</label>
+                            <select class="form-control" name="talla" id="9">
                       <option>Seleccione una talla..</option>
                 <?php
                       while ( $row = $result->fetch_array() )
@@ -113,19 +113,17 @@
                 ?>
 
                 </select>
-            </div>
+                        </div>
 
-            <div class="form-group input-group">
-                <button type="button" onclick="loadLog()" class="form-control">Enviar</button>
+                        <div class="form-group input-group">
+                            <button type="button" onclick="Val_reg_producto()" class="form-control">Enviar</button>
 
-            </div>
+                        </div>
 
-            <div class="form-group">
-                <label class="form-group" id="qwe"></label>
-            </div>
+                        <div class="form-group">
+                            <label class="form-group" id="qwe"></label>
+                        </div>
         </form>
-
-          <script src="../../../../dashboard/Views/js/validar.js"></script>
-
+        <script src="../../../../dashboard/Views/js/Validaciones/val_reg_producto.js"></script>
     </div>
 </div>
