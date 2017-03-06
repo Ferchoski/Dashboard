@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-03-2017 a las 13:47:56
+-- Tiempo de generación: 06-03-2017 a las 15:58:00
 -- Versión del servidor: 5.6.24
 -- Versión de PHP: 5.6.8
 
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS `tb_chat` (
   `fecha_hora_E` datetime NOT NULL,
   `mensaje` longtext NOT NULL,
   `estado` tinyint(1) NOT NULL,
-  `fk_usuariodocumento` int(11) NOT NULL,
-  `fk_usuariodocumento1` int(11) NOT NULL
+  `fk_usuariodocumento` varchar(20) NOT NULL,
+  `fk_usuariodocumento1` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -90,7 +90,6 @@ CREATE TABLE IF NOT EXISTS `tb_detalle` (
   `sub_total` int(11) NOT NULL,
   `total` int(11) NOT NULL,
   `tb_Pedido_id_Pedido` int(11) NOT NULL,
-  `tb_Venta_id_Venta` int(11) NOT NULL,
   `tb_Producto_id_Producto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -200,6 +199,26 @@ CREATE TABLE IF NOT EXISTS `tb_proovedor` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tb_publicacion`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_publicacion` (
+  `id_publicacion` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` longtext NOT NULL,
+  `fechacreacion` date NOT NULL,
+  `fechainicio` date NOT NULL,
+  `fechafin` date NOT NULL,
+  `imagen` varchar(20) NOT NULL,
+  `lugarevento` varchar(20) NOT NULL,
+  `estado` tinyint(1) NOT NULL,
+  `fk_usuarios` varchar(20) NOT NULL,
+  `fk_tipopubli` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tb_rol`
 --
 
@@ -270,7 +289,9 @@ CREATE TABLE IF NOT EXISTS `tb_tipodocumento` (
 
 INSERT INTO `tb_tipodocumento` (`id_TipoDocumento`, `nom_TipoDocumento`) VALUES
 (1, 'Cedula (C.C)'),
-(2, 'Tarjeta de Identidad (T.I)');
+(2, 'Tarjeta de Identidad (T.I)'),
+(3, 'Cédula de Extranjería.'),
+(4, 'NIT');
 
 -- --------------------------------------------------------
 
@@ -323,14 +344,6 @@ CREATE TABLE IF NOT EXISTS `tb_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `tb_usuario`
---
-
-INSERT INTO `tb_usuario` (`documento`, `tb_TipoDocumento_id_TipoDocumento`, `nombres`, `apellido_1`, `email`, `contrasena`, `telefonoFijo`, `telefonoMovil`, `direccion`, `estado`, `tb_Rol_id_rol`) VALUES
-('123', 1, 'Juan', 'Cardenas', 'cardenas@gmail.com', '123', '5885203', '3178200389', 'CASA', 2, 1),
-('789', 2, 'Pulga', 'Bolivia', 'pulga@gay.com', '123', '123456', '123456', 'La guerrilla', 2, 1);
-
---
 -- Índices para tablas volcadas
 --
 
@@ -344,7 +357,7 @@ ALTER TABLE `tb_categoria`
 -- Indices de la tabla `tb_chat`
 --
 ALTER TABLE `tb_chat`
-  ADD PRIMARY KEY (`idchat`);
+  ADD PRIMARY KEY (`idchat`), ADD KEY `fk_usuariodocumento` (`fk_usuariodocumento`);
 
 --
 -- Indices de la tabla `tb_ciudad`
@@ -362,7 +375,7 @@ ALTER TABLE `tb_departamento`
 -- Indices de la tabla `tb_detalle`
 --
 ALTER TABLE `tb_detalle`
-  ADD PRIMARY KEY (`id_Detalle`,`tb_Pedido_id_Pedido`,`tb_Venta_id_Venta`,`tb_Producto_id_Producto`), ADD KEY `fk_tb_Detalle_tb_Pedido1_idx` (`tb_Pedido_id_Pedido`), ADD KEY `fk_tb_Detalle_tb_Producto1_idx` (`tb_Producto_id_Producto`);
+  ADD PRIMARY KEY (`id_Detalle`,`tb_Pedido_id_Pedido`,`tb_Producto_id_Producto`), ADD KEY `fk_tb_Detalle_tb_Pedido1_idx` (`tb_Pedido_id_Pedido`), ADD KEY `fk_tb_Detalle_tb_Producto1_idx` (`tb_Producto_id_Producto`);
 
 --
 -- Indices de la tabla `tb_estado_pedido`
@@ -399,6 +412,12 @@ ALTER TABLE `tb_promocion`
 --
 ALTER TABLE `tb_proovedor`
   ADD PRIMARY KEY (`id_Proovedor`);
+
+--
+-- Indices de la tabla `tb_publicacion`
+--
+ALTER TABLE `tb_publicacion`
+  ADD PRIMARY KEY (`id_publicacion`), ADD KEY `fk_usuarios` (`fk_usuarios`), ADD KEY `fk_tipopubli` (`fk_tipopubli`), ADD KEY `fk_usuarios_2` (`fk_usuarios`);
 
 --
 -- Indices de la tabla `tb_rol`
@@ -457,6 +476,11 @@ ALTER TABLE `tb_chat`
 ALTER TABLE `tb_producto`
   MODIFY `Tallas_idtallas` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT de la tabla `tb_publicacion`
+--
+ALTER TABLE `tb_publicacion`
+  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `tb_tallas`
 --
 ALTER TABLE `tb_tallas`
@@ -470,6 +494,12 @@ ALTER TABLE `tb_tallas`
 --
 ALTER TABLE `tb_categoria`
 ADD CONSTRAINT `fk_tb_Categoria_tb_sub_cate1` FOREIGN KEY (`tb_sub_cate_id_sub`) REFERENCES `tb_sub_cate` (`id_sub`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `tb_chat`
+--
+ALTER TABLE `tb_chat`
+ADD CONSTRAINT `tb_chat_ibfk_1` FOREIGN KEY (`fk_usuariodocumento`) REFERENCES `tb_usuario` (`documento`);
 
 --
 -- Filtros para la tabla `tb_ciudad`
@@ -505,6 +535,13 @@ ALTER TABLE `tb_producto`
 ADD CONSTRAINT `fk_tb_Producto_tb_Categoria1` FOREIGN KEY (`tb_Categoria_id_Categoria`) REFERENCES `tb_categoria` (`id_Categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `fk_tb_Producto_tb_Marca1` FOREIGN KEY (`tb_Marca_id_Marca`) REFERENCES `tb_marca` (`id_Marca`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `tb_producto_ibfk_1` FOREIGN KEY (`Tallas_idtallas`) REFERENCES `tb_tallas` (`idtallas`);
+
+--
+-- Filtros para la tabla `tb_publicacion`
+--
+ALTER TABLE `tb_publicacion`
+ADD CONSTRAINT `tb_publicacion_ibfk_1` FOREIGN KEY (`fk_usuarios`) REFERENCES `tb_usuario` (`documento`),
+ADD CONSTRAINT `tb_publicacion_ibfk_2` FOREIGN KEY (`fk_tipopubli`) REFERENCES `tb_tipo_publicacion` (`id_Tipo_Publicacion`);
 
 --
 -- Filtros para la tabla `tb_tallas`
