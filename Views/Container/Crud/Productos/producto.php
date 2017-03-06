@@ -10,33 +10,33 @@
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-hashtag" style="width: 15px;"></i></span>
-                <input type="number" class="form-control" name="codigo" placeholder="Codigo Producto" id="1">
+                <input type="number" class="form-control"  placeholder="Codigo Producto" id="1">
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-cube" style="width: 15px;"></i></span>
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre" id="2">
+                <input type="text" class="form-control" placeholder="Nombre" id="2">
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-hashtag" style="width: 15px;"></i></span>
-                <input type="number" class="form-control" name="stock" placeholder="Stock" id="3">
+                <input type="number" class="form-control" placeholder="Stock" id="3">
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-usd" style="width: 15px;"></i></span>
-                <input type="number" class="form-control" name="precio" placeholder="Precio" id="4">
+                <input type="number" class="form-control"  placeholder="Precio" id="4">
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-cubes" style="width: 15px;"></i></span>
-                <input type="number" class="form-control" name="cantidad" placeholder="Cantidad" id="5">
+                <input type="number" class="form-control"  placeholder="Cantidad" id="5">
             </div>
 
             <div class="form-group">
                 <label>Estado</label>
                 <select class="form-control" name="estado" id="6">
-                        <option value="">Seleccione un estado</option>
+                        <option value="">Seleccione un estado</optio
                         <option value="0">Falso</option>
                         <option value="1">Activo</option>
                   </select>
