@@ -13,108 +13,89 @@
                 <input type="number" class="form-control" name="codigo" placeholder="Documento" id="1">
             </div>
 
-            <?php
-                include '../../../../Model/config.php';
-                $query = 'SELECT * FROM tb_tipodocumento';
-                $result = $conexion->query($query);
-            ?>
+            <?php include '../../../../Model/config.php'; $query='SELECT * FROM tb_tipodocumento' ; $result=$conexion->query($query); ?>
             <div class="form-group">
                 <label>Tipo de documento</label>
-                <select class="form-control"  id="2">
-                      <option value="">Seleccione un tipo de documento</option>
-                <?php
-                      while ( $row = $result->fetch_array() )
-                      {
-                ?>
+                <select class="form-control" id="2">
+                    <option value="">Seleccione un tipo de documento</option>
+                    <?php while ( $row=$result->fetch_array() ) { ?>
 
-                <option value=" <?php echo $row['id_TipoDocumento'] ?> "  >
-                  <?php echo $row['nom_TipoDocumento']; ?>
-                </option>
-                <?php
-                }
-                ?>
+                    <option value=" <?php echo $row['id_TipoDocumento'] ?> ">
+                        <?php echo $row['nom_TipoDocumento']; ?>
+                    </option>
+                    <?php } ?>
                 </select>
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-user" style="width: 15px;"></i></span>
-                <input type="text" class="form-control"  placeholder="Nombre" id="3">
+                <input type="text" class="form-control" placeholder="Nombre" id="3">
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-user" style="width: 15px;"></i></span>
-                <input type="text" class="form-control"  placeholder="Apellido" id="4">
+                <input type="text" class="form-control" placeholder="Apellido" id="4">
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-phone" style="width: 15px;"></i></span>
-                <input type="text" class="form-control"  placeholder="Telefono fijo" id="5">
+                <input type="text" class="form-control" placeholder="Telefono fijo" id="5">
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-unlock-alt" style="width: 15px;"></i></span>
-                <input type="password" class="form-control"  placeholder="Contraseña" id="6">
+                <input type="password" class="form-control" placeholder="Contraseña" id="6">
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-unlock-alt" style="width: 15px;"></i></span>
-                <input type="password" class="form-control"  placeholder="Repetir contraseña" id="7">
+                <input type="password" class="form-control" placeholder="Repetir contraseña" id="7">
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope" style="width: 15px;"></i></span>
-                <input type="email" class="form-control"  placeholder="Email" id="8">
+                <input type="email" class="form-control" placeholder="Email" id="8">
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-mobile" style="width: 15px;"></i></span>
-                <input type="text" class="form-control"  placeholder="Telefono Movil" id="9">
+                <input type="text" class="form-control" placeholder="Telefono Movil" id="9">
             </div>
 
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-map-marker" style="width: 15px;"></i></span>
-                <input type="text" class="form-control"  placeholder="Direccion" id="10">
+                <input type="text" class="form-control" placeholder="Direccion" id="10">
             </div>
 
-            <?php
-                include '../../../../Model/config.php';
-                $query = 'SELECT * FROM tb_rol';
-                $result = $conexion->query($query);
-            ?>
+            <?php include '../../../../Model/config.php'; $query='SELECT * FROM tb_rol' ; $result=$conexion->query($query); ?>
             <div class="form-group">
                 <label>Rol</label>
-                <select class="form-control"  id="11">
-                      <option value="">Seleccione un rol</option>
-                <?php
-                      while ( $row = $result->fetch_array() )
-                      {
-                ?>
+                <select class="form-control" id="11">
+                    <option value="">Seleccione un rol</option>
+                    <?php while ( $row=$result->fetch_array() ) { ?>
 
-                <option value="<?php echo $row['id_rol'] ?> "  >
-                  <?php echo $row['nom_rol']; ?>
-                </option>
-                <?php
-                }
-                ?>
+                    <option value="<?php echo $row['id_rol'] ?> ">
+                        <?php echo $row['nom_rol']; ?>
+                    </option>
+                    <?php } ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Estado</label>
                 <select class="form-control" name="estado" id="12">
-                        <option value="">Seleccione un estado</option>
-                        <option value="0">Inactivo</option>
-                        <option value="1">Activo</option>
-                  </select>
+                    <option value="">Seleccione un estado</option>
+                    <option value="0">Inactivo</option>
+                    <option value="1">Activo</option>
+                </select>
             </div>
 
             <div class="form-group input-group">
-                      <button type="button" onclick="Val_reg_usuarios()" class="form-control">Enviar</button>
-
+                <button type="button" onclick="Val_reg_usuarios()" class="form-control">Enviar</button>
             </div>
 
             <div class="form-group">
-                      <label class="form-group" id="qwe"></label>
+                <label class="form-group" id="qwe"></label>
             </div>
 
         </form>
