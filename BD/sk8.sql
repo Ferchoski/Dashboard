@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-03-2017 a las 01:15:12
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 7.1.1
+-- Tiempo de generación: 07-03-2017 a las 14:20:42
+-- Versión del servidor: 10.1.19-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -28,16 +28,31 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tb_categoria` (
   `id_Categoria` int(11) NOT NULL,
-  `nom_categoria` varchar(45) NOT NULL,
-  `tb_sub_cate_id_sub` int(11) NOT NULL
+  `nom_categoria` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='	';
 
 --
 -- Volcado de datos para la tabla `tb_categoria`
 --
 
-INSERT INTO `tb_categoria` (`id_Categoria`, `nom_categoria`, `tb_sub_cate_id_sub`) VALUES
-(1, 'Patinetas', 1);
+INSERT INTO `tb_categoria` (`id_Categoria`, `nom_categoria`) VALUES
+(1, 'Patineta'),
+(2, 'Ropa');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_chat`
+--
+
+CREATE TABLE `tb_chat` (
+  `idchat` int(11) NOT NULL,
+  `fecha_hora_E` datetime NOT NULL,
+  `mensaje` longtext NOT NULL,
+  `estado` tinyint(1) NOT NULL,
+  `fk_usuariodocumento` varchar(20) NOT NULL,
+  `fk_usuariodocumento1` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -75,8 +90,47 @@ CREATE TABLE `tb_detalle` (
   `sub_total` int(11) NOT NULL,
   `total` int(11) NOT NULL,
   `tb_Pedido_id_Pedido` int(11) NOT NULL,
-  `tb_Venta_id_Venta` int(11) NOT NULL,
   `tb_Producto_id_Producto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_detalleplantilla`
+--
+
+CREATE TABLE `tb_detalleplantilla` (
+  `id_detallleplant` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `subtotal` float NOT NULL,
+  `fk_plantilla` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_detallepromocion`
+--
+
+CREATE TABLE `tb_detallepromocion` (
+  `descuento` float NOT NULL,
+  `preciopromocion` float NOT NULL,
+  `fk_promocion` int(11) NOT NULL,
+  `fk_producto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_entrada`
+--
+
+CREATE TABLE `tb_entrada` (
+  `id_entradas` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `fecha_entrada` int(11) NOT NULL,
+  `fk_producto` int(11) NOT NULL,
+  `fk_proveedor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -129,6 +183,20 @@ CREATE TABLE `tb_pedido` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tb_plantilla`
+--
+
+CREATE TABLE `tb_plantilla` (
+  `id_plantilla` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `caracterizacion` varchar(45) NOT NULL,
+  `total` int(11) NOT NULL,
+  `fk_detalle` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tb_producto`
 --
 
@@ -136,6 +204,7 @@ CREATE TABLE `tb_producto` (
   `id_Producto` int(11) NOT NULL,
   `nombre` varchar(25) NOT NULL,
   `stockMinimo` int(11) NOT NULL,
+  `imagen` varchar(200) DEFAULT NULL,
   `precio` int(11) NOT NULL,
   `estado_producto` tinyint(1) DEFAULT NULL,
   `cantidad` int(11) NOT NULL,
@@ -143,15 +212,6 @@ CREATE TABLE `tb_producto` (
   `Tallas_idtallas` int(11) NOT NULL,
   `tb_Marca_id_Marca` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `tb_producto`
---
-
-INSERT INTO `tb_producto` (`id_Producto`, `nombre`, `stockMinimo`, `precio`, `estado_producto`, `cantidad`, `tb_Categoria_id_Categoria`, `Tallas_idtallas`, `tb_Marca_id_Marca`) VALUES
-(123, 'Locas', 12, 12, 1, 12, 1, 1, 1),
-(546, 'Perras', 12, 12, 1, 12, 1, 1, 1),
-(34534654, 'Fercho', 13, 13, 2, 13, 1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -185,6 +245,26 @@ CREATE TABLE `tb_proovedor` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tb_publicacion`
+--
+
+CREATE TABLE `tb_publicacion` (
+  `id_publicacion` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` longtext NOT NULL,
+  `fechacreacion` date NOT NULL,
+  `fechainicio` date NOT NULL,
+  `fechafin` date NOT NULL,
+  `imagen` varchar(20) NOT NULL,
+  `lugarevento` varchar(20) NOT NULL,
+  `estado` tinyint(1) NOT NULL,
+  `fk_usuarios` varchar(20) NOT NULL,
+  `fk_tipopubli` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tb_rol`
 --
 
@@ -208,15 +288,18 @@ INSERT INTO `tb_rol` (`id_rol`, `nom_rol`) VALUES
 
 CREATE TABLE `tb_sub_cate` (
   `id_sub` int(11) NOT NULL,
-  `nombre` varchar(45) DEFAULT NULL
+  `nombre` varchar(45) DEFAULT NULL,
+  `fk_categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tb_sub_cate`
 --
 
-INSERT INTO `tb_sub_cate` (`id_sub`, `nombre`) VALUES
-(1, 'longboard');
+INSERT INTO `tb_sub_cate` (`id_sub`, `nombre`, `fk_categoria`) VALUES
+(1, 'maderos', 1),
+(2, 'trucks', 1),
+(3, 'camisa', 2);
 
 -- --------------------------------------------------------
 
@@ -255,7 +338,9 @@ CREATE TABLE `tb_tipodocumento` (
 
 INSERT INTO `tb_tipodocumento` (`id_TipoDocumento`, `nom_TipoDocumento`) VALUES
 (1, 'Cedula (C.C)'),
-(2, 'Tarjeta de Identidad (T.I)');
+(2, 'Tarjeta de Identidad (T.I)'),
+(3, 'Cédula de Extranjería.'),
+(4, 'NIT');
 
 -- --------------------------------------------------------
 
@@ -308,14 +393,6 @@ CREATE TABLE `tb_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `tb_usuario`
---
-
-INSERT INTO `tb_usuario` (`documento`, `tb_TipoDocumento_id_TipoDocumento`, `nombres`, `apellido_1`, `email`, `contrasena`, `telefonoFijo`, `telefonoMovil`, `direccion`, `estado`, `tb_Rol_id_rol`) VALUES
-('123', 1, 'Juan', 'Cardenas', 'cardenas@gmail.com', '123', '5885203', '3178200389', 'CASA', 2, 1),
-('789', 2, 'Pulga', 'Bolivia', 'pulga@gay.com', '123', '123456', '123456', 'La guerrilla', 2, 1);
-
---
 -- Índices para tablas volcadas
 --
 
@@ -323,8 +400,14 @@ INSERT INTO `tb_usuario` (`documento`, `tb_TipoDocumento_id_TipoDocumento`, `nom
 -- Indices de la tabla `tb_categoria`
 --
 ALTER TABLE `tb_categoria`
-  ADD PRIMARY KEY (`id_Categoria`,`tb_sub_cate_id_sub`),
-  ADD KEY `fk_tb_Categoria_tb_sub_cate1_idx` (`tb_sub_cate_id_sub`);
+  ADD PRIMARY KEY (`id_Categoria`);
+
+--
+-- Indices de la tabla `tb_chat`
+--
+ALTER TABLE `tb_chat`
+  ADD PRIMARY KEY (`idchat`),
+  ADD KEY `fk_usuariodocumento` (`fk_usuariodocumento`);
 
 --
 -- Indices de la tabla `tb_ciudad`
@@ -343,9 +426,31 @@ ALTER TABLE `tb_departamento`
 -- Indices de la tabla `tb_detalle`
 --
 ALTER TABLE `tb_detalle`
-  ADD PRIMARY KEY (`id_Detalle`,`tb_Pedido_id_Pedido`,`tb_Venta_id_Venta`,`tb_Producto_id_Producto`),
+  ADD PRIMARY KEY (`id_Detalle`,`tb_Pedido_id_Pedido`,`tb_Producto_id_Producto`),
   ADD KEY `fk_tb_Detalle_tb_Pedido1_idx` (`tb_Pedido_id_Pedido`),
   ADD KEY `fk_tb_Detalle_tb_Producto1_idx` (`tb_Producto_id_Producto`);
+
+--
+-- Indices de la tabla `tb_detalleplantilla`
+--
+ALTER TABLE `tb_detalleplantilla`
+  ADD PRIMARY KEY (`id_detallleplant`);
+
+--
+-- Indices de la tabla `tb_detallepromocion`
+--
+ALTER TABLE `tb_detallepromocion`
+  ADD KEY `fk_promocion` (`fk_promocion`),
+  ADD KEY `fk_producto` (`fk_producto`);
+
+--
+-- Indices de la tabla `tb_entrada`
+--
+ALTER TABLE `tb_entrada`
+  ADD PRIMARY KEY (`id_entradas`),
+  ADD KEY `id_entradas` (`id_entradas`),
+  ADD KEY `fk_proveedor` (`fk_proveedor`),
+  ADD KEY `fk_proveedor_2` (`fk_proveedor`);
 
 --
 -- Indices de la tabla `tb_estado_pedido`
@@ -370,6 +475,13 @@ ALTER TABLE `tb_pedido`
   ADD KEY `fk_tb_Pedido_tb_Promocion1_idx` (`tb_Promocion_id_Promocion`);
 
 --
+-- Indices de la tabla `tb_plantilla`
+--
+ALTER TABLE `tb_plantilla`
+  ADD PRIMARY KEY (`id_plantilla`),
+  ADD KEY `fk_detalle` (`fk_detalle`);
+
+--
 -- Indices de la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
@@ -389,7 +501,17 @@ ALTER TABLE `tb_promocion`
 -- Indices de la tabla `tb_proovedor`
 --
 ALTER TABLE `tb_proovedor`
-  ADD PRIMARY KEY (`id_Proovedor`);
+  ADD PRIMARY KEY (`id_Proovedor`),
+  ADD KEY `id_Proovedor` (`id_Proovedor`);
+
+--
+-- Indices de la tabla `tb_publicacion`
+--
+ALTER TABLE `tb_publicacion`
+  ADD PRIMARY KEY (`id_publicacion`),
+  ADD KEY `fk_usuarios` (`fk_usuarios`),
+  ADD KEY `fk_tipopubli` (`fk_tipopubli`),
+  ADD KEY `fk_usuarios_2` (`fk_usuarios`);
 
 --
 -- Indices de la tabla `tb_rol`
@@ -401,7 +523,8 @@ ALTER TABLE `tb_rol`
 -- Indices de la tabla `tb_sub_cate`
 --
 ALTER TABLE `tb_sub_cate`
-  ADD PRIMARY KEY (`id_sub`);
+  ADD PRIMARY KEY (`id_sub`),
+  ADD KEY `fk_categoria` (`fk_categoria`);
 
 --
 -- Indices de la tabla `tb_tallas`
@@ -442,10 +565,35 @@ ALTER TABLE `tb_usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `tb_chat`
+--
+ALTER TABLE `tb_chat`
+  MODIFY `idchat` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_detalleplantilla`
+--
+ALTER TABLE `tb_detalleplantilla`
+  MODIFY `id_detallleplant` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_entrada`
+--
+ALTER TABLE `tb_entrada`
+  MODIFY `id_entradas` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_plantilla`
+--
+ALTER TABLE `tb_plantilla`
+  MODIFY `id_plantilla` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
   MODIFY `Tallas_idtallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tb_publicacion`
+--
+ALTER TABLE `tb_publicacion`
+  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tb_tallas`
 --
@@ -456,10 +604,10 @@ ALTER TABLE `tb_tallas`
 --
 
 --
--- Filtros para la tabla `tb_categoria`
+-- Filtros para la tabla `tb_chat`
 --
-ALTER TABLE `tb_categoria`
-  ADD CONSTRAINT `fk_tb_Categoria_tb_sub_cate1` FOREIGN KEY (`tb_sub_cate_id_sub`) REFERENCES `tb_sub_cate` (`id_sub`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `tb_chat`
+  ADD CONSTRAINT `tb_chat_ibfk_1` FOREIGN KEY (`fk_usuariodocumento`) REFERENCES `tb_usuario` (`documento`);
 
 --
 -- Filtros para la tabla `tb_ciudad`
@@ -473,6 +621,26 @@ ALTER TABLE `tb_ciudad`
 ALTER TABLE `tb_detalle`
   ADD CONSTRAINT `fk_tb_Detalle_tb_Pedido1` FOREIGN KEY (`tb_Pedido_id_Pedido`) REFERENCES `tb_pedido` (`id_Pedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_tb_Detalle_tb_Producto1` FOREIGN KEY (`tb_Producto_id_Producto`) REFERENCES `tb_producto` (`id_Producto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `tb_detalleplantilla`
+--
+ALTER TABLE `tb_detalleplantilla`
+  ADD CONSTRAINT `tb_detalleplantilla_ibfk_1` FOREIGN KEY (`id_detallleplant`) REFERENCES `tb_plantilla` (`id_plantilla`);
+
+--
+-- Filtros para la tabla `tb_detallepromocion`
+--
+ALTER TABLE `tb_detallepromocion`
+  ADD CONSTRAINT `tb_detallepromocion_ibfk_1` FOREIGN KEY (`fk_producto`) REFERENCES `tb_producto` (`id_Producto`),
+  ADD CONSTRAINT `tb_detallepromocion_ibfk_2` FOREIGN KEY (`fk_promocion`) REFERENCES `tb_promocion` (`id_Promocion`);
+
+--
+-- Filtros para la tabla `tb_entrada`
+--
+ALTER TABLE `tb_entrada`
+  ADD CONSTRAINT `tb_entrada_ibfk_1` FOREIGN KEY (`id_entradas`) REFERENCES `tb_producto` (`id_Producto`),
+  ADD CONSTRAINT `tb_entrada_ibfk_2` FOREIGN KEY (`fk_proveedor`) REFERENCES `tb_proovedor` (`id_Proovedor`);
 
 --
 -- Filtros para la tabla `tb_estado_pedido`
@@ -489,12 +657,31 @@ ALTER TABLE `tb_pedido`
   ADD CONSTRAINT `fk_tb_Pedido_tb_Usuario1` FOREIGN KEY (`tb_Usuario_documento`) REFERENCES `tb_usuario` (`documento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `tb_plantilla`
+--
+ALTER TABLE `tb_plantilla`
+  ADD CONSTRAINT `tb_plantilla_ibfk_1` FOREIGN KEY (`fk_detalle`) REFERENCES `tb_detalle` (`id_Detalle`);
+
+--
 -- Filtros para la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
   ADD CONSTRAINT `fk_tb_Producto_tb_Categoria1` FOREIGN KEY (`tb_Categoria_id_Categoria`) REFERENCES `tb_categoria` (`id_Categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_tb_Producto_tb_Marca1` FOREIGN KEY (`tb_Marca_id_Marca`) REFERENCES `tb_marca` (`id_Marca`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `tb_producto_ibfk_1` FOREIGN KEY (`Tallas_idtallas`) REFERENCES `tb_tallas` (`idtallas`);
+
+--
+-- Filtros para la tabla `tb_publicacion`
+--
+ALTER TABLE `tb_publicacion`
+  ADD CONSTRAINT `tb_publicacion_ibfk_1` FOREIGN KEY (`fk_usuarios`) REFERENCES `tb_usuario` (`documento`),
+  ADD CONSTRAINT `tb_publicacion_ibfk_2` FOREIGN KEY (`fk_tipopubli`) REFERENCES `tb_tipo_publicacion` (`id_Tipo_Publicacion`);
+
+--
+-- Filtros para la tabla `tb_sub_cate`
+--
+ALTER TABLE `tb_sub_cate`
+  ADD CONSTRAINT `tb_sub_cate_ibfk_1` FOREIGN KEY (`fk_categoria`) REFERENCES `tb_categoria` (`id_Categoria`);
 
 --
 -- Filtros para la tabla `tb_tallas`
