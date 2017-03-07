@@ -95,6 +95,7 @@
                     echo "<th>Categoria</th>";
                     echo "<th>Talla</th>";
                     echo "<th>Marca</th>";
+                    echo "<th>Accion</th>";
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
@@ -104,11 +105,16 @@
                     echo "<td>".$lol['nombre']."</td>";
                     echo "<td>".$lol['stock']."</td>";
                     echo "<td>".$lol['precio']."</td>";
-                    echo "<td>".$lol['estado']."</td>";
+                    if ($lol['estado']!=1) {
+                      echo "<td>Activo</td>";
+                    }else {
+                      echo "<td>Inactivo</td>";
+                    }
                     echo "<td>".$lol['cantidad']."</td>";
                     echo "<td>".$lol['nom_categoria']."</td>";
                     echo "<td>".$lol['nom_talla']."</td>";
                     echo "<td>".$lol['nom_marca']."</td>";
+                    echo "<td><button type='button' class='btn btn-warning'>Modificar</button></td>";
                 echo "</tr>";
             }
             echo "</tbody>";
