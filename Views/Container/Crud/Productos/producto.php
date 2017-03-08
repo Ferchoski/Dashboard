@@ -88,12 +88,6 @@
                 </select>
             </div>
 
-            <label for="">Insertar imagen (opcional)</label>
-            <div class="form-group input-group">
-                <input type="file" name="flsimage" class="form-control" id="10">
-                <span class="input-group"></span>
-            </div>
-
             <div class="form-group input-group">
                 <button type="button" onclick="Val_reg_producto()" class="btn btn-primary">Enviar</button>
             </div>

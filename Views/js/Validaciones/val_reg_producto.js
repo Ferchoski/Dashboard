@@ -10,12 +10,10 @@ function Val_reg_producto() {
     var cat = document.getElementById('8').selectedIndex;
     var talla = document.getElementById('9').selectedIndex;
 
-    var imagen =document.getElementById('10').value;
-
     if (id == null || id.length == 0 || /^\s+$/.test(id)) {
         alert("Campo identificacion esta vacio");
         return false;
-    } else if (id.length > 10) {
+    } else if (id.length > 11) {
         alert("Campo identificacion supera los 11 caracteres");
         return false;
     } else if (nom == null || nom.length == 0 || /^\s+$/.test(nom)) {
@@ -51,6 +49,6 @@ function Val_reg_producto() {
         };
         xhttp.open("POST", "../dashboard/Views/Container/Crud/Productos/v_producto.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("codigo=" + id + "&nombre=" + nom + "&stock=" + stock + "&precio=" + precio + "&cantidad=" + cantidad + "&estado=" + estado + "&marca=" + marca + "&categoria=" + cat + "&talla=" + talla+ "&flsimage="+imagen);
+        xhttp.send("codigo=" + id + "&nombre=" + nom + "&stock=" + stock + "&precio=" + precio + "&cantidad=" + cantidad + "&estado=" + estado + "&marca=" + marca + "&categoria=" + cat + "&talla=" + talla);
     }
 }
