@@ -58,9 +58,9 @@
         }
     }
 
-    function r_producto($cod, $nom,$sto,$pre,$est,$can,$mar,$cat,$tal){
+    function r_producto($cod,$nom,$sto,$pre,$est,$can,$mar,$cat,$tal,$img){
 
-        $query="INSERT into tb_producto values('$cod','$nom','$sto','$pre', '$est','$can','$cat','$tal','$mar')";
+        $query="INSERT into tb_producto values('$cod','$nom','$sto','$pre', '$est','$can','$cat','$tal','$mar','$img')";
         $consulta = $this->conexion->query($query);
 
         if (!$consulta) {
@@ -75,9 +75,9 @@
 
     function con_producto($id){
         if (empty ($id)){
-            $query="SELECT p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca";
+            $query="SELECT p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca ,p.imagen FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca";
         }else{
-            $query="SELECT p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca where p.id_Producto = '$id'";
+            $query="SELECT p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca ,p.imagen FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca where p.id_Producto = '$id'";
         }
 
         $consulta = $this->conexion->query($query);
@@ -95,6 +95,7 @@
                     echo "<th>Categoria</th>";
                     echo "<th>Talla</th>";
                     echo "<th>Marca</th>";
+                    echo "<th>Imagen</th>";
                     echo "<th>Accion</th>";
             echo "</tr>";
             echo "</thead>";
@@ -114,6 +115,7 @@
                     echo "<td>".$lol['nom_categoria']."</td>";
                     echo "<td>".$lol['nom_talla']."</td>";
                     echo "<td>".$lol['nom_marca']."</td>";
+                    echo "<td><img style='width: 200px;height: 150px;' src=".$lol['imagen']."></td>";
                     echo "<td><button type='button' class='btn btn-warning'>Modificar</button></td>";
                 echo "</tr>";
             }

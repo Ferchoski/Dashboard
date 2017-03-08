@@ -81,11 +81,16 @@
                     <?php while ( $row=$result->fetch_array() ) { ?>
 
                     <option value=" <?php echo $row['idtallas'] ?> ">
-                        <?php echo $row[ 'nombre']; ?>
+                        <?php echo $row[ 'nombre'];  ?>
                     </option>
                     <?php } ?>
-
                 </select>
+            </div>
+
+            <label for="">Insertar imagen (opcional)</label>
+            <div class="form-group input-group">
+                <input type="file" name="flsimage" class="form-control" id="10">
+                <span class="input-group"></span>
             </div>
 
             <div class="form-group input-group">
