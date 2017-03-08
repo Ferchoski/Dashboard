@@ -11,8 +11,11 @@
             $cat = $_POST['categoria'];
             $tal = $_POST['talla'];
 
+            $archivo= $_POST['flsimage'];
+            echo $archivo;
+
           $wish = new conexion;
-          $wish->r_producto($cod, $nom,$sto,$pre,$est,$can,$mar,$cat,$tal);
+          $wish->r_producto($cod,$nom,$sto,$pre,$est,$can,$mar,$cat,$tal);
           $wish->cerrar();
         }else {
           echo "Error Post";
