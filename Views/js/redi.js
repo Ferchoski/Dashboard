@@ -11,8 +11,12 @@ $(document).ready(function() {
         $(".abc").load("../dashboard/Views/Container/Crud/Ventas/ventas.html");
     });
 
-    $('#ent').click(function() {
-        $(".abc").load("../dashboard/Views/Container/Crud/Entradas/entradas.html");
+    $('#r_ent').click(function() {
+        $(".abc").load("../dashboard/Views/Container/Crud/Entradas/r_entradas.php");
+    });
+
+     $('#c_ent').click(function() {
+        $(".abc").load("../dashboard/Views/Container/Crud/Entradas/con_entradas.php");
     });
 
     $('#ped').click(function() {
