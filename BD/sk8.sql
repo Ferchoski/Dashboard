@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-03-2017 a las 14:20:42
--- Versión del servidor: 10.1.19-MariaDB
--- Versión de PHP: 5.6.24
+-- Tiempo de generación: 09-03-2017 a las 11:51:15
+-- Versión del servidor: 5.7.14
+-- Versión de PHP: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -204,14 +204,23 @@ CREATE TABLE `tb_producto` (
   `id_Producto` int(11) NOT NULL,
   `nombre` varchar(25) NOT NULL,
   `stockMinimo` int(11) NOT NULL,
-  `imagen` varchar(200) DEFAULT NULL,
   `precio` int(11) NOT NULL,
   `estado_producto` tinyint(1) DEFAULT NULL,
   `cantidad` int(11) NOT NULL,
+  `tb_Marca_id_Marca` int(11) NOT NULL,
   `tb_Categoria_id_Categoria` int(11) NOT NULL,
   `Tallas_idtallas` int(11) NOT NULL,
-  `tb_Marca_id_Marca` int(11) NOT NULL
+  `imagen` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tb_producto`
+--
+
+INSERT INTO `tb_producto` (`id_Producto`, `nombre`, `stockMinimo`, `precio`, `estado_producto`, `cantidad`, `tb_Marca_id_Marca`, `tb_Categoria_id_Categoria`, `Tallas_idtallas`, `imagen`) VALUES
+(234, 'qwe', 123, 123, 1, 123, 2, 2, 1, 'Views/Container/Crud/Productos/img/ssdvd.jpg'),
+(1231232, '123', 123, 123, 1, 123, 1, 2, 1, 'Views/Container/Crud/Productos/img/imgres.jpg'),
+(45645645, 'Zapatillas', 12, 12, 2, 12, 2, 1, 1, 'Views/Container/Crud/Productos/img/imgres.jpg');
 
 -- --------------------------------------------------------
 
@@ -588,7 +597,7 @@ ALTER TABLE `tb_plantilla`
 -- AUTO_INCREMENT de la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
-  MODIFY `Tallas_idtallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Tallas_idtallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tb_publicacion`
 --
