@@ -10,6 +10,7 @@ function Val_reg_producto() {
     var cat = document.getElementById('8').selectedIndex;
     var talla = document.getElementById('9').selectedIndex;
     var imagen =document.getElementById('10').value;
+    var imagen=(imagen.replace("C:\\fakepath\\", ""));
 
     if (id == null || id.length == 0 || /^\s+$/.test(id)) {
         alert("Campo identificacion esta vacio");

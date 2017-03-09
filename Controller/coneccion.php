@@ -82,7 +82,7 @@
 
         $consulta = $this->conexion->query($query);
 
-            echo "<div class='table-responsive'>";
+            echo "<div class='table-responsive' style='text-align:center;'>";
             echo "<table class='table table-hover'>";
             echo "<thead>";
             echo "<tr >";
@@ -115,7 +115,7 @@
                     echo "<td>".$lol['nom_categoria']."</td>";
                     echo "<td>".$lol['nom_talla']."</td>";
                     echo "<td>".$lol['nom_marca']."</td>";
-                    echo "<td><img style='width: 200px;height: 150px;' src=".$lol['imagen']."></td>";
+                    echo "<td><img class='img-responsive center-block' src=".$lol['imagen']."></td>";
                     echo "<td><button type='button' class='btn btn-warning'>Modificar</button></td>";
                 echo "</tr>";
             }
