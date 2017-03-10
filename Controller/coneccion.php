@@ -81,7 +81,7 @@
         }
 
         $consulta = $this->conexion->query($query);
-            echo "<form action='Views/Container/Crud/Productos/mod_producto.php' method='post'>";
+
             echo "<div class='table-responsive' style='text-align:center;'>";
             echo "<table class='table table-hover'>";
             echo "<thead>";
@@ -95,7 +95,6 @@
                     echo "<th>Categoria</th>";
                     echo "<th>Talla</th>";
                     echo "<th>Marca</th>";
-                    echo "<th>Imagen</th>";
                     echo "<th>Accion</th>";
             echo "</tr>";
             echo "</thead>";
@@ -103,7 +102,6 @@
             while ($lol = mysqli_fetch_array($consulta)) {
                 echo "<tr>";
                     echo "<td>".$lol['id']."</td>";
-                    echo "<input type='hidden' value=".$lol['id']." name='ide'>";
                     echo "<td>".$lol['nombre']."</td>";
                     echo "<td>".$lol['stock']."</td>";
                     echo "<td>".$lol['precio']."</td>";
@@ -116,14 +114,12 @@
                     echo "<td>".$lol['nom_categoria']."</td>";
                     echo "<td>".$lol['nom_talla']."</td>";
                     echo "<td>".$lol['nom_marca']."</td>";
-                    echo "<td><img class='img-responsive center-block' src=".$lol['imagen']."></td>";
-                    echo "<td><button type='submit' class='btn btn-warning'>Modificar</button></td>";
-                echo "</tr>";
+                    echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal'>Modificar</button></td>";
+                    echo "</tr>";
             }
             echo "</tbody>";
             echo "</table>";
             echo "</div>";
-            echo "</form>";
     }
 
     function r_usuario($doc, $nom,$ape,$telf,$pass,$email,$telm,$dir,$esta,$tdoc,$rol){
