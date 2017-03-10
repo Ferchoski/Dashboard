@@ -45,14 +45,17 @@
                     <form role="form" method="post" class="animated bounceInRight">
 
                       <?php include '../../../../Model/config.php'; $query='SELECT * FROM tb_producto' ; $result=$conexion->query($query); ?>
+
                       <div class="form-group">
-                          <label>Marca</label>
-                          <select class="form-control" name="marca" id="1">
+                          <label>ID</label>
+                          <select class="form-control" id="id2">
                             <option value="">Seleccione id a Modificar..</option>
-                            <?php while ( $row=$result->fetch_array() ) { ?>
-                            <option value=" <?php echo $row['id_Producto'] ?> ">
-                                <?php echo $row[ 'id_Producto']; ?>
+                            <?php while ($row=$result->fetch_array() ) { ?>
+
+                            <option value="<?php echo $row['id_Producto']?>">
+                                <?php echo $row['id_Producto']; ?>
                             </option>
+
                             <?php } ?>
                         </select>
                       </div>
@@ -140,13 +143,14 @@
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <label id="qwe"></label>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-primary" onclick="Val_mod_producto()">Guardar</button>
                 </div>
             </div>
         </div>
     </div>
-
+    <script src="../../../../dashboard/Views/js/Validaciones/val_mod_producto.js"></script>
     <script src="../../../../dashboard/Views/js/Validaciones/val_con_producto.js"></script>
 
 </div>

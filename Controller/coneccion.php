@@ -122,6 +122,22 @@
             echo "</div>";
     }
 
+    function mod_producto($cod,$nom,$sto,$pre,$est,$can,$mar,$cat,$tal,$img){
+      $query ="Update tb_producto SET nombre = '$nom', stockMinimo = '$sto', precio = '$pre', estado_producto = '$est', cantidad = '$can',
+       tb_Marca_id_Marca = '$mar',tb_Categoria_id_Categoria = '$cat',Tallas_idtallas = '$tal', imagen = '$img' WHERE id_Producto = '$cod'";
+
+      $consulta = $this->conexion->query($query);
+
+      if (!$consulta) {
+          printf("Error: %s\n", mysqli_error($this->conexion));
+              echo "<br><br>";
+          exit();
+      }else {
+              echo "El producto $cod se ha moodificado correctamente con el siguiente nombre: $nom";
+      }
+
+    }
+
     function r_usuario($doc, $nom,$ape,$telf,$pass,$email,$telm,$dir,$esta,$tdoc,$rol){
         $query="INSERT into tb_usuario values ('$doc','$tdoc','$nom','$ape','$email','$pass','$telf','$telm','$dir','$esta','$rol')";
         $consulta = $this->conexion->query($query);
