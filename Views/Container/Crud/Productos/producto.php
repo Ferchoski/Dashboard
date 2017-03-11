@@ -4,7 +4,7 @@
             <h1 class="page-header">Productos</h1>
         </div>
     </div>
-    <div class="col-lg-5">
+    <div class="col-lg-6">
         <h1>Registrar producto</h1>
         <form role="form" method="post" class="animated bounceInRight">
 

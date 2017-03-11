@@ -114,7 +114,7 @@
                     echo "<td>".$lol['nom_categoria']."</td>";
                     echo "<td>".$lol['nom_talla']."</td>";
                     echo "<td>".$lol['nom_marca']."</td>";
-                    echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal'>Modificar</button></td>";
+                    echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal'><span class='glyphicon glyphicon-pencil'></span></button></td>";
                     echo "</tr>";
             }
             echo "</tbody>";
