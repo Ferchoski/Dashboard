@@ -103,6 +103,7 @@
                       </select>
                     </div>
 
+                    <!-- Imagen -->
                     <label>Insertar imagen (opcional)</label>
                     <div class="form-group input-group">
                         <input type="file" name="flsimage" class="form-control" id="10">
@@ -112,9 +113,11 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <label id="qwe"></label>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary" onclick="Val_mod_producto()">Guardar</button>
+            </div>
+            <div class="modal-footer">
+                <label id="zxc"></label>
             </div>
         </div>
     </div>
