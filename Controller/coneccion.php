@@ -1,5 +1,4 @@
 <?php
-
     class conexion {
 
         public $conexion;
@@ -60,7 +59,8 @@
 
     function r_producto($cod,$nom,$sto,$pre,$est,$can,$mar,$cat,$tal,$img){
 
-        $query="INSERT into tb_producto values('$cod','$nom','$sto','$pre', '$est','$can','$cat','$tal','$mar','$img')";
+        $query="CALL reg_producto('$cod','$nom','$sto','$pre','$est','$can','$cat','$mar','$tal','$img')";
+
         $consulta = $this->conexion->query($query);
 
         if (!$consulta) {
@@ -75,9 +75,9 @@
 
     function con_producto($id){
         if (empty ($id)){
-            $query="SELECT p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca ,p.imagen FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca";
+            $query="CALL con_producto_todo()";
         }else{
-            $query="SELECT p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca ,p.imagen FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca where p.id_Producto = '$id'";
+            $query="CALL con_producto('$id')";
         }
 
         $consulta = $this->conexion->query($query);
@@ -123,8 +123,7 @@
     }
 
     function mod_producto($cod,$nom,$sto,$pre,$est,$can,$mar,$cat,$tal,$img){
-      $query ="Update tb_producto SET nombre = '$nom', stockMinimo = '$sto', precio = '$pre', estado_producto = '$est', cantidad = '$can',
-       tb_Marca_id_Marca = '$mar',tb_Categoria_id_Categoria = '$cat',Tallas_idtallas = '$tal', imagen = '$img' WHERE id_Producto = '$cod'";
+      $query="CALL mod_producto('$cod','$nom','$sto','$pre','$est','$can','$mar','$cat','$tal','$img')";
 
       $consulta = $this->conexion->query($query);
 
@@ -138,8 +137,9 @@
 
     }
 
-    function r_usuario($doc, $nom,$ape,$telf,$pass,$email,$telm,$dir,$esta,$tdoc,$rol){
-        $query="INSERT into tb_usuario values ('$doc','$tdoc','$nom','$ape','$email','$pass','$telf','$telm','$dir','$esta','$rol')";
+    function r_usuario($doc,$nom,$ape,$telf,$pass,$email,$telm,$dir,$esta,$tdoc,$rol){
+        $query="CALL reg_usuario('$doc','$tdoc','$nom','$ape','$email','$pass','$telf','$telm','$dir','$esta','$rol')";
+
         $consulta = $this->conexion->query($query);
 
         if (!$consulta) {
@@ -149,14 +149,13 @@
         }else {
                 echo "Usuario $nom $ape fue ingresado correctamente";
         }
-
     }
 
     function c_usuario($doc){
             if (empty ($doc)){
-                $query="SELECT u.documento,tp.nom_TipoDocumento nom_tipo,u.nombres,u.apellido_1 apellidos,u.email,u.contrasena,u.telefonoFijo,u.telefonoMovil,u.direccion,u.estado,r.nom_rol rol FROM tb_usuario u JOIN tb_tipodocumento tp on tp.id_TipoDocumento = u.tb_TipoDocumento_id_TipoDocumento JOIN tb_rol r on r.id_rol=u.tb_Rol_id_rol";
+                $query="CALL con_usuario()";
             } else {
-                $query="SELECT u.documento,tp.nom_TipoDocumento nom_tipo,u.nombres,u.apellido_1 apellidos,u.email,u.contrasena,u.telefonoFijo,u.telefonoMovil,u.direccion,u.estado,r.nom_rol rol FROM tb_usuario u JOIN tb_tipodocumento tp on tp.id_TipoDocumento = u.tb_TipoDocumento_id_TipoDocumento JOIN tb_rol r on r.id_rol=u.tb_Rol_id_rol where u.documento='$doc'";
+                $query="CALL con_usuario_todo('$doc')";
             }
 
             $consulta = $this->conexion->query($query);
@@ -199,5 +198,4 @@
                 echo "</div>";
     }
   }
-// Para arreglar el code https://www.tools4noobs.com/online_tools/beautify_php/
 ?>

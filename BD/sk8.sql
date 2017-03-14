@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-03-2017 a las 11:51:15
--- Versión del servidor: 5.7.14
--- Versión de PHP: 5.6.25
+-- Tiempo de generación: 14-03-2017 a las 01:15:09
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,33 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sk8`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `con_producto` (IN `id` INT)  NO SQL
+SELECT p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca ,p.imagen FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca where p.id_Producto = id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `con_producto_todo` ()  NO SQL
+SELECT p.id_Producto id,p.nombre ,p.stockMinimo stock,p.precio ,p.estado_producto estado,p.cantidad ,c.nom_categoria ,t.nombre nom_talla,m.nom_marca ,p.imagen FROM tb_producto p join tb_categoria c on p.tb_Categoria_id_Categoria=c.id_Categoria join tb_tallas t on p.Tallas_idtallas=t.idtallas join tb_marca m on p.tb_Marca_id_Marca=m.id_Marca$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `con_usuario` ()  NO SQL
+SELECT u.documento,tp.nom_TipoDocumento nom_tipo,u.nombres,u.apellido_1 apellidos,u.email,u.contrasena,u.telefonoFijo,u.telefonoMovil,u.direccion,u.estado,r.nom_rol rol FROM tb_usuario u JOIN tb_tipodocumento tp on tp.id_TipoDocumento = u.tb_TipoDocumento_id_TipoDocumento JOIN tb_rol r on r.id_rol=u.tb_Rol_id_rol$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `con_usuario_todo` (IN `id` INT)  NO SQL
+SELECT u.documento,tp.nom_TipoDocumento nom_tipo,u.nombres,u.apellido_1 apellidos,u.email,u.contrasena,u.telefonoFijo,u.telefonoMovil,u.direccion,u.estado,r.nom_rol rol FROM tb_usuario u JOIN tb_tipodocumento tp on tp.id_TipoDocumento = u.tb_TipoDocumento_id_TipoDocumento JOIN tb_rol r on r.id_rol=u.tb_Rol_id_rol where u.documento=id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mod_producto` (IN `id` INT, IN `nombre` VARCHAR(25), IN `stock` INT, IN `precio` INT, IN `estado` BOOLEAN, IN `cantidad` INT, IN `marca` INT, IN `categoria` INT, IN `talla` INT, IN `img` VARCHAR(100))  NO SQL
+UPDATE tb_producto SET nombre = nombre, stockMinimo = stock, precio = precio, estado_producto = estado, cantidad = cantidad,tb_Marca_id_Marca = marca,tb_Categoria_id_Categoria = categoria,Tallas_idtallas = talla, imagen = img WHERE id_Producto = id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `reg_producto` (IN `id` INT, IN `nombre` VARCHAR(25), IN `stock` INT, IN `precio` INT, IN `estado` BOOLEAN, IN `cantidad` INT, IN `categoria` INT, IN `talla` INT, IN `marca` INT, IN `img` VARCHAR(100))  NO SQL
+INSERT into tb_producto values(id,nombre,stock,precio, estado,cantidad,categoria,talla,marca,img)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `reg_usuario` (IN `id` VARCHAR(20), IN `tipo` INT, IN `nomb` VARCHAR(45) CHARSET utf8, IN `ape` VARCHAR(45) CHARSET utf8, IN `email` VARCHAR(45) CHARSET utf8, IN `pass` VARCHAR(45) CHARSET utf8, IN `telf` VARCHAR(45) CHARSET utf8, IN `telm` VARCHAR(45) CHARSET utf8, IN `dir` VARCHAR(45) CHARSET utf8, IN `est` BOOLEAN, IN `rol` INT)  NO SQL
+INSERT into tb_usuario values (id,tipo,nomb,ape,email,pass,telf,telm,dir,est,rol)$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -218,9 +245,11 @@ CREATE TABLE `tb_producto` (
 --
 
 INSERT INTO `tb_producto` (`id_Producto`, `nombre`, `stockMinimo`, `precio`, `estado_producto`, `cantidad`, `tb_Marca_id_Marca`, `tb_Categoria_id_Categoria`, `Tallas_idtallas`, `imagen`) VALUES
-(234, 'qwe', 123, 123, 1, 123, 2, 2, 1, 'Views/Container/Crud/Productos/img/ssdvd.jpg'),
+(234, '11111', 1111, 1111, 1, 1111, 2, 1, 2, 'Views/Container/Crud/Productos/img/ssdvd.jpg'),
+(657, 'Trucks', 12, 12, 2, 12, 2, 1, 1, 'Views/Container/Crud/Productos/img/ssdvd.jpg'),
 (1231232, '123', 123, 123, 1, 123, 1, 2, 1, 'Views/Container/Crud/Productos/img/imgres.jpg'),
-(45645645, 'Zapatillas', 12, 12, 2, 12, 2, 1, 1, 'Views/Container/Crud/Productos/img/imgres.jpg');
+(45645645, 'Zapatillas', 12, 12, 2, 12, 2, 1, 1, 'Views/Container/Crud/Productos/img/imgres.jpg'),
+(354345345, 'Madero', 12, 12, 1, 12, 2, 2, 2, 'Views/Container/Crud/Productos/img/imgres.jpg');
 
 -- --------------------------------------------------------
 
@@ -400,6 +429,14 @@ CREATE TABLE `tb_usuario` (
   `estado` tinyint(1) NOT NULL,
   `tb_Rol_id_rol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tb_usuario`
+--
+
+INSERT INTO `tb_usuario` (`documento`, `tb_TipoDocumento_id_TipoDocumento`, `nombres`, `apellido_1`, `email`, `contrasena`, `telefonoFijo`, `telefonoMovil`, `direccion`, `estado`, `tb_Rol_id_rol`) VALUES
+('123', 1, 'Juan', 'Cardenas', 'jdcardenas@gmail.com', '123', '588', '11234123', 'Rodeo Alto', 2, 1),
+('654344455', 1, 'Brayan', 'Alexis', 'brayan@gmail.com', '123', '345463', '2343242', 'por aq', 2, 1);
 
 --
 -- Índices para tablas volcadas
@@ -597,7 +634,7 @@ ALTER TABLE `tb_plantilla`
 -- AUTO_INCREMENT de la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
-  MODIFY `Tallas_idtallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Tallas_idtallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tb_publicacion`
 --
