@@ -25,7 +25,7 @@
 <body>
 
     <div id="wrapper">
-        <?php include_once( 'Views/Container/nav.html'); include_once( 'Views/Container/section.html'); ?>
+        <?php include_once('Views/Container/nav.html'); include_once('Views/Container/section.html'); ?>
     </div>
 
 </body>

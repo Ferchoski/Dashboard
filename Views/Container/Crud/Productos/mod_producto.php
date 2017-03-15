@@ -64,28 +64,47 @@
                         <select class="form-control" name="marca" id="7">
                           <option value="">Seleccione una marca..</option>
                           <?php while ( $row=$result->fetch_array() ) { ?>
-
                           <option value=" <?php echo $row['id_Marca'] ?> ">
-                              <?php echo $row[ 'nom_marca']; ?>
+                              <?php echo $row['nom_marca']; ?>
                           </option>
                           <?php } ?>
                       </select>
                     </div>
 
-                    <!-- Categoria -->
-                    <?php include '../../../../Model/config.php'; $query='SELECT * FROM tb_categoria' ; $result=$conexion->query($query); ?>
+                    <!-- Sub Categoria -->
+                    <?php include '../../../../Model/config.php'; $query='SELECT * FROM tb_sub_cate' ; $result=$conexion->query($query); ?>
                     <div class="form-group">
                         <label>Categoria</label>
-                        <select class="form-control" name="categoria" id="8">
-                          <option>Seleccione una categoria..</option>
-                          <?php while ( $row=$result->fetch_array() ) { ?>
+                        <select class="form-control" name="13" id="13">
+                            <option>Seleccione una categoria..</option>
+                            <?php while ( $row=$result->fetch_array() ) { ?>
+                            <option value=" <?php echo $row['id_sub'] ?> ">
+                                <?php echo $row['nombre']; ?>
+                            </option>
+                            <?php } ?>
+                        </select>
+                    </div>
 
-                          <option value=" <?php echo $row['id_Categoria'] ?> ">
-                              <?php echo $row[ 'nom_categoria']; ?>
-                          </option>
-                          <?php } ?>
+                    <script language="javascript">
+                        $(document).ready(function() {
+                            $("#13").change(function() {
+                                $("#13 option:selected").each(function() {
+                                    id_sub = $(this).val();
+                                    $.post("Views/Container/Crud/Productos/v_producto.php", {
+                                        id_sub: id_sub
+                                    }, function(data) {
+                                        $("#8").html(data);
+                                    });
+                                });
+                            })
+                        });
+                    </script>
 
-                      </select>
+                    <!-- Categoria -->
+                    <div class="form-group">
+                        <select class="form-control" name="8" id="8">
+                          <option value="">Seleccione una categoria primero</option>
+                        </select>
                     </div>
 
                     <!-- Talla -->
@@ -95,9 +114,8 @@
                         <select class="form-control" name="talla" id="9">
                           <option>Seleccione una talla..</option>
                           <?php while ( $row=$result->fetch_array() ) { ?>
-
                           <option value=" <?php echo $row['idtallas'] ?> ">
-                              <?php echo $row[ 'nombre'];  ?>
+                              <?php echo $row['nombre'];  ?>
                           </option>
                           <?php } ?>
                       </select>

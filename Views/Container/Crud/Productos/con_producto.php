@@ -14,7 +14,7 @@
             </div>
 
             <div class="form-group input-group">
-                <button type="button" class="form-control" onclick="Val_con_producto()">Consultar</button>
+                <button type="button" class="btn btn-success" onclick="Val_con_producto()">Consultar</button>
             </div>
 
         </form>

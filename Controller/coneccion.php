@@ -33,12 +33,8 @@
             $_SESSION['nom'] = $row['contrasena'];
 
             echo "Bienvenido " .$_SESSION['usu']." has iniciado sesion";
-
         }else {
-
             echo "Usuario o contraseña incorrectos";
-        #    echo "<br><br>";
-        #    echo "<a href='registrar.html'>No tienes cuenta? registrate..</a>";
         }
     }
 
@@ -71,6 +67,24 @@
                 echo "El producto $nom se ha registrado correctamente con el siguiente codigo: $cod";
         }
 
+    }
+
+    function cat($id){
+      $query = "CALL con_cat('$id')";
+
+      $consulta = $this->conexion->query($query);
+
+      if (!$consulta) {
+        printf("Error: %s\n", mysqli_error($this->conexion));
+            echo "<br><br>";
+        exit();
+      }else {
+            $html='<option value="">Seleccione</option>';
+        while ($row = $consulta->fetch_array()) {
+            $html.= '<option value="'.$row['id_Categoria'].'">'.$row['nom_categoria'].'</option>';
+        }
+      }
+      echo $html;
     }
 
     function con_producto($id){
@@ -114,7 +128,7 @@
                     echo "<td>".$lol['nom_categoria']."</td>";
                     echo "<td>".$lol['nom_talla']."</td>";
                     echo "<td>".$lol['nom_marca']."</td>";
-                    echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal'><span class='glyphicon glyphicon-pencil'></span></button></td>";
+                    echo "<td><button type='button' class='btn btn-warning' data-toggle='modal' data-target='#myModal'><span class='glyphicon glyphicon-pencil'></span></button></td>";
                     echo "</tr>";
             }
             echo "</tbody>";
@@ -134,7 +148,6 @@
       }else {
               echo "El producto $cod se ha moodificado correctamente con el siguiente nombre: $nom";
       }
-
     }
 
     function r_usuario($doc,$nom,$ape,$telf,$pass,$email,$telm,$dir,$esta,$tdoc,$rol){

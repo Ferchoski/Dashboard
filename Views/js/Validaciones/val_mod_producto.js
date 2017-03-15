@@ -1,6 +1,6 @@
 function Val_mod_producto() {
     var id = document.getElementById('id2').selectedIndex;
-    var id3=document.getElementById('id2').value;
+    var id3 = document.getElementById('id2').value;
     var nom = document.getElementById('2').value;
     var stock = document.getElementById('3').value;
     var precio = document.getElementById('4').value;
@@ -8,10 +8,13 @@ function Val_mod_producto() {
 
     var estado = document.getElementById('6').selectedIndex;
     var marca = document.getElementById('7').selectedIndex;
+    var marca2 = document.getElementById('7').value;
     var cat = document.getElementById('8').selectedIndex;
+    var cat2 = document.getElementById('8').value;
     var talla = document.getElementById('9').selectedIndex;
-    var imagen =document.getElementById('10').value;
-    var imagen=(imagen.replace("C:\\fakepath\\", ""));
+    var talla2 = document.getElementById('9').value;
+    var imagen = document.getElementById('10').value;
+    var imagen = (imagen.replace("C:\\fakepath\\", ""));
 
     if (id == null || id == 0) {
         alert("Seleccione un ID");
@@ -49,6 +52,6 @@ function Val_mod_producto() {
         };
         xhttp.open("POST", "../dashboard/Views/Container/Crud/Productos/v_mod_producto.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("codigo=" + id3 + "&nombre=" + nom + "&stock=" + stock + "&precio=" + precio + "&cantidad=" + cantidad + "&estado=" + estado + "&marca=" + marca + "&categoria=" + cat + "&talla=" + talla+ "&flsimage="+imagen);
+        xhttp.send("codigo=" + id3 + "&nombre=" + nom + "&stock=" + stock + "&precio=" + precio + "&cantidad=" + cantidad + "&estado=" + estado + "&marca=" + marca2 + "&categoria=" + cat2 + "&talla=" + talla2 + "&flsimage=" + imagen);
     }
 }

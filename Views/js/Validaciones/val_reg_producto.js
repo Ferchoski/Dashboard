@@ -7,10 +7,13 @@ function Val_reg_producto() {
 
     var estado = document.getElementById('6').selectedIndex;
     var marca = document.getElementById('7').selectedIndex;
+    var marca2 = document.getElementById('7').value;
     var cat = document.getElementById('8').selectedIndex;
+    var cat2 = document.getElementById('8').value;
     var talla = document.getElementById('9').selectedIndex;
-    var imagen =document.getElementById('10').value;
-    var imagen=(imagen.replace("C:\\fakepath\\", ""));
+    var talla2 = document.getElementById('9').value;
+    var imagen = document.getElementById('10').value;
+    var imagen = (imagen.replace("C:\\fakepath\\", ""));
 
     if (id == null || id.length == 0 || /^\s+$/.test(id)) {
         alert("Campo identificacion esta vacio");
@@ -51,6 +54,6 @@ function Val_reg_producto() {
         };
         xhttp.open("POST", "../dashboard/Views/Container/Crud/Productos/v_producto.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("codigo=" + id + "&nombre=" + nom + "&stock=" + stock + "&precio=" + precio + "&cantidad=" + cantidad + "&estado=" + estado + "&marca=" + marca + "&categoria=" + cat + "&talla=" + talla+ "&flsimage="+imagen);
+        xhttp.send("codigo=" + id + "&nombre=" + nom + "&stock=" + stock + "&precio=" + precio + "&cantidad=" + cantidad + "&estado=" + estado + "&marca=" + marca2 + "&categoria=" + cat2 + "&talla=" + talla2 + "&flsimage=" + imagen);
     }
 }
