@@ -88,7 +88,7 @@
             <!-- Categoria -->
             <div class="form-group">
                 <select class="form-control" name="8" id="8">
-                  <option value="">Seleccione una categoria primero</option>
+                  <option>Seleccione una categoria primero</option>
                 </select>
             </div>
 

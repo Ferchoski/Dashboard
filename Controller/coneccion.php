@@ -79,7 +79,7 @@
             echo "<br><br>";
         exit();
       }else {
-            $html='<option value="">Seleccione</option>';
+            $html='<option value="">Seleccione...</option>';
         while ($row = $consulta->fetch_array()) {
             $html.= '<option value="'.$row['id_Categoria'].'">'.$row['nom_categoria'].'</option>';
         }

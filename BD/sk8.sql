@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-03-2017 a las 04:10:20
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 5.6.30
+-- Tiempo de generación: 15-03-2017 a las 16:43:48
+-- Versión del servidor: 5.7.14
+-- Versión de PHP: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -70,7 +70,9 @@ INSERT INTO `tb_categoria` (`id_Categoria`, `nom_categoria`, `fk_subcategoria`) 
 (1, 'Truck Skateboard', 1),
 (2, 'Truck Longboard', 2),
 (3, 'Ruedas Skateboard', 1),
-(4, 'Ruedas Longboard', 2);
+(4, 'Ruedas Longboard', 2),
+(7, 'Camisas', 3),
+(8, 'Pantalon', 3);
 
 -- --------------------------------------------------------
 
@@ -246,13 +248,6 @@ CREATE TABLE `tb_producto` (
   `imagen` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `tb_producto`
---
-
-INSERT INTO `tb_producto` (`id_Producto`, `nombre`, `stockMinimo`, `precio`, `estado_producto`, `cantidad`, `tb_Categoria_id_Categoria`, `tb_Marca_id_Marca`, `Tallas_idtallas`, `imagen`) VALUES
-(1, 'Truck Independent 129mm', 123, 123, 2, 123, 1, 2, 2, 'Views/Container/Crud/Productos/img/imgres.jpg');
-
 -- --------------------------------------------------------
 
 --
@@ -352,14 +347,6 @@ CREATE TABLE `tb_tallas` (
   `tb_tipoTalla_id_tipo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `tb_tallas`
---
-
-INSERT INTO `tb_tallas` (`idtallas`, `nombre`, `tb_tipoTalla_id_tipo`) VALUES
-(1, '8Pulgadas', 1),
-(2, '150cm ', 2);
-
 -- --------------------------------------------------------
 
 --
@@ -397,8 +384,9 @@ CREATE TABLE `tb_tipotalla` (
 --
 
 INSERT INTO `tb_tipotalla` (`id_tipo`, `nombre`) VALUES
-(1, 'patinetas'),
-(2, 'Madero');
+(1, 'Skateboard'),
+(2, 'Longboard'),
+(3, 'Ropa');
 
 -- --------------------------------------------------------
 
@@ -615,7 +603,7 @@ ALTER TABLE `tb_usuario`
 -- AUTO_INCREMENT de la tabla `tb_categoria`
 --
 ALTER TABLE `tb_categoria`
-  MODIFY `id_Categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_Categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `tb_chat`
 --
@@ -656,6 +644,11 @@ ALTER TABLE `tb_sub_cate`
 --
 ALTER TABLE `tb_tallas`
   MODIFY `idtallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tb_tipotalla`
+--
+ALTER TABLE `tb_tipotalla`
+  MODIFY `id_tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Restricciones para tablas volcadas
 --
@@ -730,8 +723,8 @@ ALTER TABLE `tb_plantilla`
 --
 ALTER TABLE `tb_producto`
   ADD CONSTRAINT `fk_tb_Producto_tb_Marca1` FOREIGN KEY (`tb_Marca_id_Marca`) REFERENCES `tb_marca` (`id_Marca`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `tb_producto_ibfk_1` FOREIGN KEY (`Tallas_idtallas`) REFERENCES `tb_tallas` (`idtallas`),
-  ADD CONSTRAINT `tb_producto_ibfk_2` FOREIGN KEY (`tb_Categoria_id_Categoria`) REFERENCES `tb_categoria` (`id_Categoria`);
+  ADD CONSTRAINT `tb_producto_ibfk_2` FOREIGN KEY (`tb_Categoria_id_Categoria`) REFERENCES `tb_categoria` (`id_Categoria`),
+  ADD CONSTRAINT `tb_producto_ibfk_3` FOREIGN KEY (`Tallas_idtallas`) REFERENCES `tb_tallas` (`idtallas`);
 
 --
 -- Filtros para la tabla `tb_publicacion`
