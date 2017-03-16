@@ -1,0 +1,120 @@
+<script>
+    $('#myModal').on('shown.bs.modal', function() {
+        $('#myInput').focus()
+    })
+</script>
+<div class="modal fade" id="myModalRegUsu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h1 class="modal-title" id="myModalLabel">Modificar</h1>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="post" class="animated bounceInRight">
+
+                    <?php include '../../../../Model/config.php'; $query='SELECT * FROM tb_usuario' ; $result=$conexion->query($query); ?>
+
+                    <div class="form-group">
+                        <label>ID</label>
+                        <select class="form-control" id="id2">
+                        <option value="">Seleccione id a Modificar..</option>
+                        <?php while ($row=$result->fetch_array() ) { ?>
+
+                        <option value="<?php echo $row['documento']?>">
+                            <?php echo $row['documento']; ?>
+                        </option>
+
+                        <?php } ?>
+                    </select>
+                    </div>
+
+
+                    <?php include '../../../../Model/config.php'; $query='SELECT * FROM tb_tipodocumento' ; $result=$conexion->query($query); ?>
+                    <div class="form-group">
+                        <label>Tipo de documento</label>
+                        <select class="form-control" id="2">
+                            <option value="">Seleccione un tipo de documento</option>
+                            <?php while ( $row=$result->fetch_array() ) { ?>
+
+                            <option value=" <?php echo $row['id_TipoDocumento'] ?> ">
+                                <?php echo $row['nom_TipoDocumento']; ?>
+                            </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-user" style="width: 15px;"></i></span>
+                        <input type="text" class="form-control" placeholder="Nombre" id="3">
+                    </div>
+
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-user" style="width: 15px;"></i></span>
+                        <input type="text" class="form-control" placeholder="Apellido" id="4">
+                    </div>
+
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-phone" style="width: 15px;"></i></span>
+                        <input type="text" class="form-control" placeholder="Telefono fijo" id="5">
+                    </div>
+
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-unlock-alt" style="width: 15px;"></i></span>
+                        <input type="password" class="form-control" placeholder="Contraseña" id="6">
+                    </div>
+
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-unlock-alt" style="width: 15px;"></i></span>
+                        <input type="password" class="form-control" placeholder="Repetir contraseña" id="7">
+                    </div>
+
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope" style="width: 15px;"></i></span>
+                        <input type="email" class="form-control" placeholder="Email" id="8">
+                    </div>
+
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-mobile" style="width: 15px;"></i></span>
+                        <input type="text" class="form-control" placeholder="Telefono Movil" id="9">
+                    </div>
+
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-map-marker" style="width: 15px;"></i></span>
+                        <input type="text" class="form-control" placeholder="Direccion" id="10">
+                    </div>
+
+                    <?php include '../../../../Model/config.php'; $query='SELECT * FROM tb_rol' ; $result=$conexion->query($query); ?>
+                    <div class="form-group">
+                        <label>Rol</label>
+                        <select class="form-control" id="11">
+                            <option value="">Seleccione un rol</option>
+                            <?php while ( $row=$result->fetch_array() ) { ?>
+
+                            <option value="<?php echo $row['id_rol'] ?> ">
+                                <?php echo $row['nom_rol']; ?>
+                            </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select class="form-control" name="estado" id="12">
+                            <option value="">Seleccione un estado</option>
+                            <option value="0">Inactivo</option>
+                            <option value="1">Activo</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Val_mod_usuario()">Guardar</button>
+            </div>
+            <div class="modal-footer">
+                <label id="zxc"></label>
+            </div>
+        </div>
+    </div>
+</div>

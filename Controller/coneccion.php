@@ -188,6 +188,7 @@
                         echo "<th>Direccion</th>";
                         echo "<th>Estado</th>";
                         echo "<th>Rol</th>";
+                        echo "<th>Accion</th>";
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
@@ -204,11 +205,27 @@
                         echo "<td>".$lol['direccion']."</td>";
                         echo "<td>".$lol['estado']."</td>";
                         echo "<td>".$lol['rol']."</td>";
+                        echo "<td><button type='button' class='btn btn-warning' data-toggle='modal' data-target='#myModalRegUsu'><span class='glyphicon glyphicon-pencil'></span></button></td>";
                     echo "</tr>";
                 }
                 echo "</tbody>";
                 echo "</table>";
                 echo "</div>";
     }
-  }
+
+    function mod_usuario($doc, $nom,$ape,$telf,$pass,$email,$telm,$dir,$esta,$tdoc,$rol){
+      $query="CALL mod_usuario('$doc','$tdoc', '$nom','$ape','$email','$pass','$telf','$telm','$dir','$esta','$rol')";
+
+      $consulta = $this->conexion->query($query);
+
+      if (!$consulta) {
+          printf("Error: %s\n", mysqli_error($this->conexion));
+              echo "<br><br>";
+          exit();
+      }else {
+              echo "El documento $doc se ha modificado correctamente con el siguiente nombre: $nom";
+      }
+    }
+    }
+
 ?>

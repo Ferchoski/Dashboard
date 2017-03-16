@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-03-2017 a las 16:43:48
--- Versión del servidor: 5.7.14
--- Versión de PHP: 5.6.25
+-- Tiempo de generación: 16-03-2017 a las 03:44:48
+-- Versión del servidor: 10.1.19-MariaDB
+-- Versión de PHP: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -41,6 +41,9 @@ SELECT u.documento,tp.nom_TipoDocumento nom_tipo,u.nombres,u.apellido_1 apellido
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `mod_producto` (IN `id` INT, IN `nombre` VARCHAR(25), IN `stock` INT, IN `precio` INT, IN `estado` BOOLEAN, IN `cantidad` INT, IN `marca` INT, IN `categoria` INT, IN `talla` INT, IN `img` VARCHAR(100))  NO SQL
 UPDATE tb_producto SET nombre = nombre, stockMinimo = stock, precio = precio, estado_producto = estado, cantidad = cantidad,tb_Marca_id_Marca = marca,tb_Categoria_id_Categoria = categoria,Tallas_idtallas = talla, imagen = img WHERE id_Producto = id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mod_usuario` (IN `doc` VARCHAR(20), IN `tipdoc` INT, IN `nom` VARCHAR(45), IN `apell` VARCHAR(45), IN `email` VARCHAR(45), IN `pass` VARCHAR(45), IN `telF` VARCHAR(20), IN `telM` VARCHAR(20), IN `direcc` VARCHAR(20), IN `est` TINYINT(1), IN `rol` INT)  NO SQL
+update tb_usuario set tb_TipoDocumento_id_TipoDocumento=tipdoc, nombres=nom,apellido_1=apell,email=email, contrasena=pass, telefonoFijo=telF,telefonoMovil=telM,direccion=direcc,estado=est,tb_Rol_id_rol=rol where documento=doc$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `reg_producto` (IN `id` INT, IN `nombre` VARCHAR(25), IN `stock` INT, IN `precio` INT, IN `estado` BOOLEAN, IN `cantidad` INT, IN `categoria` INT, IN `talla` INT, IN `marca` INT, IN `img` VARCHAR(100))  NO SQL
 INSERT into tb_producto values(id,nombre,stock,precio, estado,cantidad,categoria,talla,marca,img)$$
@@ -248,6 +251,13 @@ CREATE TABLE `tb_producto` (
   `imagen` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `tb_producto`
+--
+
+INSERT INTO `tb_producto` (`id_Producto`, `nombre`, `stockMinimo`, `precio`, `estado_producto`, `cantidad`, `tb_Categoria_id_Categoria`, `tb_Marca_id_Marca`, `Tallas_idtallas`, `imagen`) VALUES
+(154, 'truck', 10, 10000, 2, 100, 2, 1, 1, 'Views/Container/Crud/Productos/img/');
+
 -- --------------------------------------------------------
 
 --
@@ -347,6 +357,13 @@ CREATE TABLE `tb_tallas` (
   `tb_tipoTalla_id_tipo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `tb_tallas`
+--
+
+INSERT INTO `tb_tallas` (`idtallas`, `nombre`, `tb_tipoTalla_id_tipo`) VALUES
+(1, 'xl', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -424,7 +441,7 @@ CREATE TABLE `tb_usuario` (
 --
 
 INSERT INTO `tb_usuario` (`documento`, `tb_TipoDocumento_id_TipoDocumento`, `nombres`, `apellido_1`, `email`, `contrasena`, `telefonoFijo`, `telefonoMovil`, `direccion`, `estado`, `tb_Rol_id_rol`) VALUES
-('123', 1, 'Juan', 'Cardenas', 'jdcardenas@gmail.com', '123', '588', '11234123', 'Rodeo Alto', 2, 1),
+('123', 1, 'pulga', 'cebollera', 'lasfarc@gmail.com', '123', '18519', '52945149', 'el monte', 2, 1),
 ('654344455', 1, 'Brayan', 'Alexis', 'brayan@gmail.com', '123', '345463', '2343242', 'por aq', 2, 1);
 
 --
@@ -628,7 +645,7 @@ ALTER TABLE `tb_plantilla`
 -- AUTO_INCREMENT de la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
-  MODIFY `Tallas_idtallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Tallas_idtallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tb_publicacion`
 --
@@ -638,12 +655,12 @@ ALTER TABLE `tb_publicacion`
 -- AUTO_INCREMENT de la tabla `tb_sub_cate`
 --
 ALTER TABLE `tb_sub_cate`
-  MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tb_tallas`
 --
 ALTER TABLE `tb_tallas`
-  MODIFY `idtallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idtallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tb_tipotalla`
 --

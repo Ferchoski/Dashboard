@@ -23,10 +23,12 @@
     <div class="row">
         <div class="col-lg-12" style="text-align:center;">
             <div class="table-responsive" id="qwe">
-                
+
             </div>
         </div>
     </div>
+      <?php include('mod_usuario.php'); ?>
 
+    <script src="../../../../dashboard/Views/js/Validaciones/val_mod_usuario.js"></script>
     <script src="../../../../dashboard/Views/js/Validaciones/val_con_usuario.js"></script>
 </div>
