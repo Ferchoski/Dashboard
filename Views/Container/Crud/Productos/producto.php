@@ -117,7 +117,6 @@
             </div>
 
             <!-- Talla -->
-            <?php include '../../../../Model/config.php'; $query='SELECT * FROM tb_tallas' ; $result=$conexion->query($query); ?>
             <div class="form-group">
                 <label>Talla</label>
                 <select class="form-control" name="9" id="9">

@@ -79,7 +79,7 @@
             echo "<br><br>";
         exit();
       }else {
-            $html='<option value="">Seleccione...</option>';
+            $html='<option>Seleccione...</option>';
         while ($row = $consulta->fetch_array()) {
             $html.= '<option value="'.$row['id_Categoria'].'">'.$row['nom_categoria'].'</option>';
         }
@@ -88,9 +88,7 @@
     }
 
     function marca($id){
-      $query="SELECT cm.tb_marca_id_Marca id_marca,m.nom_marca FROM tb_categoria_has_tb_marca cm
-      join tb_categoria c on c.id_Categoria=cm.tb_categoria_id_Categoria
-      join tb_marca m on m.id_Marca=cm.tb_marca_id_Marca where cm.tb_categoria_id_Categoria='$id'";
+      $query="CALL con_marca('$id')";
 
       $consulta = $this->conexion->query($query);
 
@@ -99,7 +97,7 @@
             echo "<br><br>";
         exit();
       }else {
-            $html='<option value="">Seleccione...</option>';
+            $html='<option>Seleccione...</option>';
         while ($row = $consulta->fetch_array()) {
             $html.= '<option value="'.$row['id_marca'].'">'.$row['nom_marca'].'</option>';
         }
@@ -108,9 +106,7 @@
     }
 
     function talla($id){
-      $query="SELECT ct.tb_tallas_idtallas id_talla,t.nombre nom_talla FROM tb_categoria_has_tb_tallas ct
-      join tb_categoria c on c.id_Categoria=ct.tb_categoria_id_Categoria
-      join tb_tallas t on t.idtallas=ct.tb_tallas_idtallas where ct.tb_categoria_id_Categoria='$id'";
+      $query="CALL con_talla('$id')";
 
       $consulta = $this->conexion->query($query);
 
@@ -119,7 +115,7 @@
             echo "<br><br>";
         exit();
       }else {
-            $html='<option value="">Seleccione...</option>';
+            $html='<option>Seleccione...</option>';
         while ($row = $consulta->fetch_array()) {
             $html.= '<option value="'.$row['id_talla'].'">'.$row['nom_talla'].'</option>';
         }

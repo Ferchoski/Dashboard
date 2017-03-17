@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-03-2017 a las 13:09:27
+-- Tiempo de generación: 17-03-2017 a las 16:33:03
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -27,11 +27,20 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `con_cat` (IN `cat` INT)  NO SQL
 SELECT p.nom_categoria,p.id_Categoria from tb_categoria p JOIN tb_sub_cate sb on sb.id_sub=p.tb_sub_cate_id_sub where sb.id_sub=cat$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `con_cat_talla` (IN `id_talla` INT, IN `id_cat` INT)  NO SQL
+SELECT * from tb_categoria_has_tb_tallas ct where ct.id_cat_tall=id_talla AND ct.tb_categoria_id_Categoria=id_cat$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `con_marca` (IN `id` INT)  NO SQL
+SELECT cm.tb_marca_id_Marca id_marca,m.nom_marca FROM tb_categoria_has_tb_marca cm join tb_categoria c on c.id_Categoria=cm.tb_categoria_id_Categoria join tb_marca m on m.id_Marca=cm.tb_marca_id_Marca where cm.tb_categoria_id_Categoria=id$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `con_producto` (IN `id` INT)  NO SQL
 select p.id_Producto id,p.nombre,p.stockMinimo stock,p.precio,p.estado_producto estado,p.cantidad,c.nom_categoria,sc.nombre nom_sub,m.nom_marca,t.nombre nom_talla from tb_producto p join tb_categoria_has_tb_tallas ct on P.tb_categoria_has_tb_tallas_id_cat_tall=ct.id_cat_tall join tb_tallas t on t.idtallas=ct.tb_tallas_idtallas join tb_categoria c on ct.tb_categoria_id_Categoria=c.id_Categoria join tb_sub_cate sc on sc.id_sub=c.tb_sub_cate_id_sub join tb_categoria_has_tb_marca cm on cm.tb_categoria_id_Categoria=c.id_Categoria join tb_marca m on m.id_Marca=cm.tb_marca_id_Marca where p.id_Producto = id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `con_producto_todo` ()  NO SQL
 select p.id_Producto id,p.nombre,p.stockMinimo stock,p.precio,p.estado_producto estado,p.cantidad,c.nom_categoria,sc.nombre nom_sub,m.nom_marca,t.nombre nom_talla from tb_producto p join tb_categoria_has_tb_tallas ct on P.tb_categoria_has_tb_tallas_id_cat_tall=ct.id_cat_tall join tb_tallas t on t.idtallas=ct.tb_tallas_idtallas join tb_categoria c on ct.tb_categoria_id_Categoria=c.id_Categoria join tb_sub_cate sc on sc.id_sub=c.tb_sub_cate_id_sub join tb_categoria_has_tb_marca cm on cm.tb_categoria_id_Categoria=c.id_Categoria join tb_marca m on m.id_Marca=cm.tb_marca_id_Marca$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `con_talla` (IN `id` INT)  NO SQL
+SELECT ct.tb_tallas_idtallas id_talla,t.nombre nom_talla FROM tb_categoria_has_tb_tallas ct join tb_categoria c on c.id_Categoria=ct.tb_categoria_id_Categoria join tb_tallas t on t.idtallas=ct.tb_tallas_idtallas where ct.tb_categoria_id_Categoria=id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `con_usuario` ()  NO SQL
 SELECT u.documento,tp.nom_TipoDocumento nom_tipo,u.nombres,u.apellido_1 apellidos,u.email,u.contrasena,u.telefonoFijo,u.telefonoMovil,u.direccion,u.estado,r.nom_rol rol FROM tb_usuario u JOIN tb_tipodocumento tp on tp.id_TipoDocumento = u.tb_TipoDocumento_id_TipoDocumento JOIN tb_rol r on r.id_rol=u.tb_Rol_id_rol$$
