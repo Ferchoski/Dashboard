@@ -7,24 +7,19 @@
             $wish = new conexion;
             $wish->cat($id_sub);
             $wish->cerrar();
-          }
-          if (isset($_POST['id_Categoria'])) {
+          }elseif (isset($_POST['id_Categoria'])) {
             $id_Categoria=$_POST['id_Categoria'];
 
             $wish = new conexion;
             $wish->marca($id_Categoria);
             $wish->cerrar();
-          }
-          if (isset($_POST['id_CategoriaT'])) {
+          }elseif (isset($_POST['id_CategoriaT'])) {
             $id_Categoria=$_POST['id_CategoriaT'];
 
             $wish = new conexion;
             $wish->talla($id_Categoria);
             $wish->cerrar();
-          }
-
-          if (isset($_POST)) {
-            $cod = $_POST['codigo'];
+          }elseif (isset($_POST)) {
             $nom = $_POST['nombre'];
             $sto = $_POST['stock'];
             $pre = $_POST['precio'];
@@ -38,7 +33,7 @@
             $des="Views/Container/Crud/Productos/img/".$img;
 
           $wish = new conexion;
-          $wish->r_producto($cod, $nom,$sto,$pre,$est,$can,$mar,$cat,$tal,$des);
+          $wish->r_producto($nom,$sto,$pre,$est,$can,$mar,$cat,$tal,$des);
           $wish->cerrar();
         }
 ?>

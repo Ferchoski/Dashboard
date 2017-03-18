@@ -53,20 +53,40 @@
         }
     }
 
-    function r_producto($cod,$nom,$sto,$pre,$est,$can,$mar,$cat,$tal,$img){
+    function r_producto($nom,$sto,$pre,$est,$can,$mar,$cat,$tal,$img){
 
-        $query="CALL reg_producto('$cod','$nom','$sto','$pre','$est','$can','$cat','$mar','$tal','$img')";
+        $q1="CALL val_cat_mar_tal('$cat','$tal','$mar')";
 
-        $consulta = $this->conexion->query($query);
+        $c1 = $this->conexion->query($q1);
 
-        if (!$consulta) {
+        if (!$c1) {
             printf("Error: %s\n", mysqli_error($this->conexion));
                 echo "<br><br>";
             exit();
         }else {
-                echo "El producto $nom se ha registrado correctamente con el siguiente codigo: $cod";
-        }
+          while ($lol = mysqli_fetch_array($c1)) {
+            $id=$lol['id'];
 
+          }
+          $a=$this->conexion->close();
+
+          $this->conexion = new mysqli($this->server, $this->usuario, $this->pass, $this->db);
+          if($this->conexion->connect_errno){
+              die("Fallo al tratar de conectar con MySQL: (". $this->conexion->connect_errno.")");
+          }
+
+          $query="CALL reg_producto('$nom','$sto','$pre','$est','$can','$img','$id')";
+
+          $consulta = $this->conexion->query($query);
+
+          if (!$consulta) {
+              printf("Error: %s\n", mysqli_error($this->conexion));
+                  echo "<br><br>";
+              exit();
+          }else {
+                  echo "El producto $nom se ha registrado correctamente";
+          }
+        }
     }
 
     function cat($id){

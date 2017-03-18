@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-03-2017 a las 16:33:03
--- Versión del servidor: 5.7.14
--- Versión de PHP: 5.6.25
+-- Tiempo de generación: 18-03-2017 a las 03:29:17
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -54,11 +54,17 @@ UPDATE tb_producto SET nombre = nombre, stockMinimo = stock, precio = precio, es
 CREATE DEFINER=`root`@`localhost` PROCEDURE `mod_usuario` (IN `doc` VARCHAR(20), IN `tipdoc` INT, IN `nom` VARCHAR(45), IN `apell` VARCHAR(45), IN `email` VARCHAR(45), IN `pass` VARCHAR(45), IN `telF` VARCHAR(20), IN `telM` VARCHAR(20), IN `direcc` VARCHAR(20), IN `est` TINYINT(1), IN `rol` INT)  NO SQL
 update tb_usuario set tb_TipoDocumento_id_TipoDocumento=tipdoc, nombres=nom,apellido_1=apell,email=email, contrasena=pass, telefonoFijo=telF,telefonoMovil=telM,direccion=direcc,estado=est,tb_Rol_id_rol=rol where documento=doc$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `reg_producto` (IN `id` INT, IN `nombre` VARCHAR(25), IN `stock` INT, IN `precio` INT, IN `estado` BOOLEAN, IN `cantidad` INT, IN `categoria` INT, IN `talla` INT, IN `marca` INT, IN `img` VARCHAR(100))  NO SQL
-INSERT into tb_producto values(id,nombre,stock,precio, estado,cantidad,categoria,talla,marca,img)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `reg_producto` (IN `nombre` VARCHAR(25), IN `stock` INT, IN `precio` INT, IN `estado` BOOLEAN, IN `cantidad` INT, IN `img` VARCHAR(100), IN `id_cat_tal_mar` INT)  NO SQL
+INSERT INTO tb_producto VALUES (null, nombre, stock, precio, estado, cantidad, img, id_cat_tal_mar)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `reg_usuario` (IN `id` VARCHAR(20), IN `tipo` INT, IN `nomb` VARCHAR(45) CHARSET utf8, IN `ape` VARCHAR(45) CHARSET utf8, IN `email` VARCHAR(45) CHARSET utf8, IN `pass` VARCHAR(45) CHARSET utf8, IN `telf` VARCHAR(45) CHARSET utf8, IN `telm` VARCHAR(45) CHARSET utf8, IN `dir` VARCHAR(45) CHARSET utf8, IN `est` BOOLEAN, IN `rol` INT)  NO SQL
 INSERT into tb_usuario values (id,tipo,nomb,ape,email,pass,telf,telm,dir,est,rol)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `val_cat_mar_tal` (IN `id_cat` INT, IN `id_talla` INT, IN `id_mar` INT)  NO SQL
+SELECT ct.id_cat_tall id FROM tb_categoria_has_tb_tallas ct
+JOIN tb_categoria c on ct.tb_categoria_id_Categoria=c.id_Categoria
+JOIN tb_categoria_has_tb_marca cm on c.id_Categoria=cm.tb_categoria_id_Categoria
+where c.id_Categoria=id_cat and ct.tb_tallas_idtallas=id_talla and cm.tb_marca_id_Marca=id_mar$$
 
 DELIMITER ;
 
@@ -298,15 +304,6 @@ CREATE TABLE `tb_producto` (
   `imagen` varchar(200) DEFAULT NULL,
   `tb_categoria_has_tb_tallas_id_cat_tall` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `tb_producto`
---
-
-INSERT INTO `tb_producto` (`id_Producto`, `nombre`, `stockMinimo`, `precio`, `estado_producto`, `cantidad`, `imagen`, `tb_categoria_has_tb_tallas_id_cat_tall`) VALUES
-(1, 'Truck Reynols', 5, 120000, 1, 10, NULL, 1),
-(2, 'Camisa', 5, 20000, 1, 10, NULL, 2),
-(3, 'Pantalon', 5, 150000, 1, 10, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -653,7 +650,7 @@ ALTER TABLE `tb_marca`
 -- AUTO_INCREMENT de la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
-  MODIFY `id_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `tb_rol`
 --
