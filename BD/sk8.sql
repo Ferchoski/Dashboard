@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-03-2017 a las 03:29:17
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 5.6.30
+-- Tiempo de generación: 21-03-2017 a las 12:01:07
+-- Versión del servidor: 5.7.14
+-- Versión de PHP: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -48,8 +48,8 @@ SELECT u.documento,tp.nom_TipoDocumento nom_tipo,u.nombres,u.apellido_1 apellido
 CREATE DEFINER=`root`@`localhost` PROCEDURE `con_usuario_todo` (IN `id` INT)  NO SQL
 SELECT u.documento,tp.nom_TipoDocumento nom_tipo,u.nombres,u.apellido_1 apellidos,u.email,u.contrasena,u.telefonoFijo,u.telefonoMovil,u.direccion,u.estado,r.nom_rol rol FROM tb_usuario u JOIN tb_tipodocumento tp on tp.id_TipoDocumento = u.tb_TipoDocumento_id_TipoDocumento JOIN tb_rol r on r.id_rol=u.tb_Rol_id_rol where u.documento=id$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mod_producto` (IN `id` INT, IN `nombre` VARCHAR(25), IN `stock` INT, IN `precio` INT, IN `estado` BOOLEAN, IN `cantidad` INT, IN `marca` INT, IN `categoria` INT, IN `talla` INT, IN `img` VARCHAR(100))  NO SQL
-UPDATE tb_producto SET nombre = nombre, stockMinimo = stock, precio = precio, estado_producto = estado, cantidad = cantidad,tb_Marca_id_Marca = marca,tb_Categoria_id_Categoria = categoria,Tallas_idtallas = talla, imagen = img WHERE id_Producto = id$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mod_producto` (IN `id` INT, IN `nombre` VARCHAR(25), IN `stock` INT, IN `precio` INT, IN `estado` BOOLEAN, IN `cantidad` INT, IN `categoria` INT, IN `img` VARCHAR(100))  NO SQL
+UPDATE tb_producto p SET nombre = nombre, stockMinimo = stock, precio = precio, estado_producto = estado, cantidad = cantidad,p.tb_categoria_has_tb_tallas_id_cat_tall = categoria, imagen = img WHERE id_Producto = id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `mod_usuario` (IN `doc` VARCHAR(20), IN `tipdoc` INT, IN `nom` VARCHAR(45), IN `apell` VARCHAR(45), IN `email` VARCHAR(45), IN `pass` VARCHAR(45), IN `telF` VARCHAR(20), IN `telM` VARCHAR(20), IN `direcc` VARCHAR(20), IN `est` TINYINT(1), IN `rol` INT)  NO SQL
 update tb_usuario set tb_TipoDocumento_id_TipoDocumento=tipdoc, nombres=nom,apellido_1=apell,email=email, contrasena=pass, telefonoFijo=telF,telefonoMovil=telM,direccion=direcc,estado=est,tb_Rol_id_rol=rol where documento=doc$$
@@ -304,6 +304,13 @@ CREATE TABLE `tb_producto` (
   `imagen` varchar(200) DEFAULT NULL,
   `tb_categoria_has_tb_tallas_id_cat_tall` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tb_producto`
+--
+
+INSERT INTO `tb_producto` (`id_Producto`, `nombre`, `stockMinimo`, `precio`, `estado_producto`, `cantidad`, `imagen`, `tb_categoria_has_tb_tallas_id_cat_tall`) VALUES
+(10, 'yOUTUBE', 324, 234, 2, 234, 'Views/Container/Crud/Productos/img/ssdvd.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -650,7 +657,7 @@ ALTER TABLE `tb_marca`
 -- AUTO_INCREMENT de la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
-  MODIFY `id_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `tb_rol`
 --

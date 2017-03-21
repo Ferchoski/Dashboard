@@ -52,23 +52,10 @@
                     <div class="form-group">
                         <label>Estado</label>
                         <select class="form-control" name="estado" id="6">
-                          <option value="">Seleccione un estado</option>
-                          <option value="0">Falso</option>
-                          <option value="1">Activo</option>
-                      </select>
-                    </div>
-                    <!-- Marca -->
-                    <?php include '../../../../Model/config.php'; $query='SELECT * FROM tb_marca' ; $result=$conexion->query($query); ?>
-                    <div class="form-group">
-                        <label>Marca</label>
-                        <select class="form-control" name="marca" id="7">
-                          <option value="">Seleccione una marca..</option>
-                          <?php while ( $row=$result->fetch_array() ) { ?>
-                          <option value=" <?php echo $row['id_Marca'] ?> ">
-                              <?php echo $row['nom_marca']; ?>
-                          </option>
-                          <?php } ?>
-                      </select>
+                            <option value="">Seleccione un estado</option>
+                            <option value="0">Falso</option>
+                            <option value="1">Activo</option>
+                        </select>
                     </div>
 
                     <!-- Sub Categoria -->
@@ -107,22 +94,53 @@
                         </select>
                     </div>
 
+                    <script language="javascript">
+                        $(document).ready(function() {
+                            $("#8").change(function() {
+                                $("#8 option:selected").each(function() {
+                                    id_Categoria = $(this).val();
+                                    $.post("Views/Container/Crud/Productos/v_producto.php", {
+                                        id_Categoria: id_Categoria
+                                    }, function(data) {
+                                        $("#7").html(data);
+                                    });
+                                });
+                            })
+                        });
+                    </script>
+
+                    <script language="javascript">
+                        $(document).ready(function() {
+                            $("#8").change(function() {
+                                $("#8 option:selected").each(function() {
+                                    id_CategoriaT = $(this).val();
+                                    $.post("Views/Container/Crud/Productos/v_producto.php", {
+                                        id_CategoriaT: id_CategoriaT
+                                    }, function(data) {
+                                        $("#9").html(data);
+                                    });
+                                });
+                            })
+                        });
+                    </script>
+
+                    <!-- Marca -->
+                    <div class="form-group">
+                        <label>Marca</label>
+                        <select class="form-control" name="7" id="7">
+                            <option>Seleccione una categoria primero</option>
+                        </select>
+                    </div>
+        
                     <!-- Talla -->
-                    <?php include '../../../../Model/config.php'; $query='SELECT * FROM tb_tallas' ; $result=$conexion->query($query); ?>
                     <div class="form-group">
                         <label>Talla</label>
-                        <select class="form-control" name="talla" id="9">
-                          <option>Seleccione una talla..</option>
-                          <?php while ( $row=$result->fetch_array() ) { ?>
-                          <option value=" <?php echo $row['idtallas'] ?> ">
-                              <?php echo $row['nombre'];  ?>
-                          </option>
-                          <?php } ?>
-                      </select>
+                        <select class="form-control" name="9" id="9">
+                            <option>Seleccione una categoria primero</option>
+                        </select>
                     </div>
 
-                    <!-- Imagen -->
-                    <label>Insertar imagen (opcional)</label>
+                    <label for="">Insertar imagen (opcional)</label>
                     <div class="form-group input-group">
                         <input type="file" name="flsimage" class="form-control" id="10">
                         <span class="input-group"></span>

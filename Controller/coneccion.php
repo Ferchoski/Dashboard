@@ -195,7 +195,28 @@
     }
 
     function mod_producto($cod,$nom,$sto,$pre,$est,$can,$mar,$cat,$tal,$img){
-      $query="CALL mod_producto('$cod','$nom','$sto','$pre','$est','$can','$mar','$cat','$tal','$img')";
+
+      $q1="CALL val_cat_mar_tal('$cat','$tal','$mar')";
+
+      $c1 = $this->conexion->query($q1);
+
+      if (!$c1) {
+          printf("Error: %s\n", mysqli_error($this->conexion));
+              echo "<br><br>";
+          exit();
+      }else {
+        while ($lol = mysqli_fetch_array($c1)) {
+          $id=$lol['id'];
+
+        }
+        $a=$this->conexion->close();
+
+        $this->conexion = new mysqli($this->server, $this->usuario, $this->pass, $this->db);
+        if($this->conexion->connect_errno){
+            die("Fallo al tratar de conectar con MySQL: (". $this->conexion->connect_errno.")");
+        }
+
+      $query="CALL mod_producto('$cod','$nom','$sto','$pre','$est','$can',$id,'$img')";
 
       $consulta = $this->conexion->query($query);
 
@@ -207,7 +228,7 @@
               echo "El producto $cod se ha moodificado correctamente con el siguiente nombre: $nom";
       }
     }
-
+}
     function r_usuario($doc,$nom,$ape,$telf,$pass,$email,$telm,$dir,$esta,$tdoc,$rol){
         $query="CALL reg_usuario('$doc','$tdoc','$nom','$ape','$email','$pass','$telf','$telm','$dir','$esta','$rol')";
 
