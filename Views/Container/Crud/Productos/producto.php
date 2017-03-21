@@ -109,6 +109,8 @@
                 <select class="form-control" name="7" id="7">
                     <option>Seleccione una categoria primero</option>
                 </select>
+                <br>
+                <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal_regMarca'>Registar marca</button></td>
             </div>
 
             <!-- Talla -->
@@ -117,6 +119,8 @@
                 <select class="form-control" name="9" id="9">
                     <option>Seleccione una categoria primero</option>
                 </select>
+                <br>
+                <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal_regTalla'>Registar talla</button></td>
             </div>
 
             <label for="">Insertar imagen (opcional)</label>
@@ -134,6 +138,8 @@
             </div>
 
         </form>
+        <?php include('modal_regMarca.php'); ?>
+        <?php include('modal_regTalla.php'); ?>
         <script src="../../../../dashboard/Views/js/Validaciones/val_reg_producto.js"></script>
     </div>
 </div>
